@@ -1,0 +1,25 @@
+.stats-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.stats-nav-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20vh;
+}
+
+.stats-nav-button {
+    margin: 20px;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(80, 77, 77);
+    box-shadow: 7px 7px 10px 2px black;
+}
+
+.back-header {
+    background-color: red;
+}
