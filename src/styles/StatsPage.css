@@ -9,7 +9,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20vh;
 }
 
 .stats-nav-button {
@@ -20,6 +19,3 @@
     box-shadow: 7px 7px 10px 2px black;
 }
 
-.back-header {
-    background-color: red;
-}

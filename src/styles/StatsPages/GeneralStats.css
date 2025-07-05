@@ -1,5 +1,49 @@
 .general-stats-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    background-color: #6C6C6C;
+}
+
+.stats-blocks {
+    background-color: rgb(255, 255, 255);
+}
+
+.static-stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.chart-box {
+  background-color: #D9D9D9;
+  color: black;
+  margin: 10px;
+  height: 20vh;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px 5px;
+}
+
+.chart-box p {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.chart-1 {
+    background-color: #D9D9D9;
+    color: black;
+    margin: 10px;
+    height: 60vh;
+    border-radius: 20px;
+}
+
+.chart-2 {
+  width: 45vw;
+}
+
+.chart-3 {
+  width: 100vw;
+}
+
+.chart-4 {
+    height: 50vh;
 }
