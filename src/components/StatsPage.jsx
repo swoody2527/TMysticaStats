@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/StatsPage.css'
 import { Link } from 'react-router-dom'
+import BackHeader from './reusable/BackHeader'
 
 function StatsPage() {
 
@@ -9,9 +10,7 @@ function StatsPage() {
     return (
         
     <div className='stats-page'>
-        <div className='back-header'>
-            <Link to={'/'}><button>go back</button></Link>
-        </div>
+        <BackHeader />
         <div className='stats-nav-options'>
             <Link to={'/general-stats'}><button className='stats-nav-button'>General Stats</button></Link>
             <Link to={'/faction-stats'}><button className='stats-nav-button'>Faction Stats</button></Link>

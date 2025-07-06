@@ -5,7 +5,8 @@ import './reusableCSS/BackHeader.css'
 function BackHeader() {
   return (
     <div className='back-header'>
-            <Link to={'/'}><button>go back</button></Link>
+      <h2>TMysticaStats</h2>
+      <Link to={'/game-statistics'}><button>Menu</button></Link>
     </div>
   )
 }

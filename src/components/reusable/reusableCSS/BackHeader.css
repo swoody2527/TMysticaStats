@@ -1,5 +1,28 @@
 .back-header {
-    background-color: red;
+    background-color: #397194;
     width: 100vw;
     height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px black;
+
+}
+
+.back-header h2 {
+    font-size: 2em;
+    margin: 20px;
+    margin-left: 5px;
+    color: #F6DB6F;
+    -webkit-text-stroke: black 1px;
+}
+
+.back-header button {
+    margin-right: 5px;
+    background-color: #1f4156;
 }

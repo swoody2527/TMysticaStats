@@ -5,7 +5,7 @@ function FactionStats() {
   return (
     <div>
         <BackHeader />
-        <div>FactionStats</div>
+        
     </div>
 
   )

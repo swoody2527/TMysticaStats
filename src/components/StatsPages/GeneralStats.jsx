@@ -118,27 +118,28 @@ function GeneralStats() {
                   label: 'Win Percentage %',
                   data: Object.values(generalStats['faction_pick%']),
                   backgroundColor: [
-                    "#4B4B4B",
-                    "#F1C40F",
-                    "#C0392B",
-                    "#2980B9",
-                    "#229954",
-                    "#D35400",
-                    "#2980B9",
-                    "#F1C40F",
-                    "#4B4B4B",
-                    "#4B4B4B",
-                    "#D35400",
-                    "#D35400",
-                    "#229954",
+                    "#A9A9A9",
+                    "#F7DC6F",
+                    "#E57373",
                     "#85C1E9",
-                    "#F1C40F",
+                    "#7DCEA0",
+                    "#F5B041",
                     "#85C1E9",
-                    "#C0392B",
-                    "#5DADE2",
-                    "#4B4B4B",
-                    "#C0392B"
+                    "#F7DC6F",
+                    "#A9A9A9",
+                    "#A9A9A9",
+                    "#F5B041",
+                    "#F5B041",
+                    "#7DCEA0",
+                    "#AED6F1",
+                    "#F7DC6F",
+                    "#AED6F1",
+                    "#E57373",
+                    "#A9CCE3",
+                    "#A9A9A9",
+                    "#E57373"
                   ]
+
 
                   ,
                 },
@@ -198,13 +199,13 @@ function GeneralStats() {
                 }
               }
             }}
-            >
+          >
 
           </Doughnut>
 
         </div>
 
-         <div className='chart-box chart-4'>
+        <div className='chart-box chart-4'>
           <Doughnut
             data={{
               labels: Object.keys(generalStats.common_map),
@@ -231,7 +232,7 @@ function GeneralStats() {
                 }
               }
             }}
-            >
+          >
 
           </Doughnut>
 
