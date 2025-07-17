@@ -1,0 +1,115 @@
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.filter-container {
+    position: fixed;
+    top: 5vh;
+    left: 0;
+    width: 100vw;
+    z-index: 10;
+    transition: height 0.4s ease, transform 0.4s ease;
+}
+
+.filter-container-banner {
+    height: 5vh;
+    background-color: rgb(61, 58, 58);
+    transform: translateY(0);
+}
+
+
+.filter-container-expanded {
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(74, 73, 73, 1);
+    transform: translateY(0);
+}
+
+
+.close-search {
+    width: 25vw;
+    margin-top: 20px;
+    background-color: rgba(74, 73, 73, 1);
+    animation: fadeIn 3s ease;
+
+}
+
+
+.filter-options-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+
+.filter-option {
+    width: 75vw;
+    height: 15vh;
+    margin: 20px;
+    background-color: rgba(48, 46, 46, 1);
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 2px rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease;
+}
+
+.faction-filter {
+    width: 75vw;
+
+}
+
+.filter-option p {
+    font-size: 20px;
+    margin: 0;
+}
+
+
+.option-select {
+    width: 50%;
+    height: 25%;
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+
+.option-select > option {
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+
+
+.arrow {
+  border: solid rgb(0, 0, 0);
+  border-width: 0 10px 10px 0;
+  display: inline-block;
+  padding: 10px;
+}
+
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+
+.apply-btn {
+    background-color: green;
+}

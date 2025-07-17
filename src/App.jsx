@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Routes, Route } from "react-router-dom"
 import LandingPage from './components/LandingPage.jsx'
 import PredictPage from './components/PredictPage.jsx'
-import StatsPage from './components/StatsPage.jsx'
+import StatsMenu from './components/StatsMenu.jsx'
 import FactionStats from './components/StatsPages/FactionStats.jsx'
 import GameTileStats from './components/StatsPages/GameTileStats.jsx'
 import GeneralStats from './components/StatsPages/GeneralStats.jsx'
@@ -18,7 +18,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<LandingPage/>}></Route>
-        <Route path='/game-statistics' element={<StatsPage/>}></Route>
+        <Route path='/game-statistics' element={<StatsMenu/>}></Route>
         <Route path='/faction-predict' element={<PredictPage/>}></Route>
         <Route path='/general-stats' element={<GeneralStats/>}></Route>
         <Route path='/faction-stats' element={<FactionStats/>}></Route>

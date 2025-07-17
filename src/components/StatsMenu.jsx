@@ -1,9 +1,9 @@
 import React from 'react'
-import '../styles/StatsPage.css'
+import '../styles/StatsMenu.css'
 import { Link } from 'react-router-dom'
 import BackHeader from './reusable/BackHeader'
 
-function StatsPage() {
+function StatsMenu() {
 
     let navOptions = ['General TM Stats', 'Faction Stats', 'Map Stats', 'Game Tile Stats', 'Trends Over Time']
   
@@ -23,4 +23,4 @@ function StatsPage() {
   )
 }
 
-export default StatsPage
+export default StatsMenu
