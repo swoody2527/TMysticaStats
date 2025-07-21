@@ -1,8 +1,11 @@
 import React from 'react'
+import BackHeader from '../reusable/BackHeader'
 
 function GameTileStats() {
   return (
-    <div>GameTileStats</div>
+    <div>
+      <BackHeader/>
+    </div>
   )
 }
 

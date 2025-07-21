@@ -1,8 +1,11 @@
 import React from 'react'
+import BackHeader from '../reusable/BackHeader'
 
 function TrendsOT() {
   return (
-    <div>TrendsOT</div>
+    <div>
+      <BackHeader/>
+    </div>
   )
 }
 

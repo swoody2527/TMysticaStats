@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     background-color: #6C6C6C;
-    margin-top: 5vh;
+    margin-top: 10vh;
 }
 
 .stats-blocks {
@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .chart-box {
@@ -24,9 +25,13 @@
   box-shadow: 5px 5px 15px 5px;
 }
 
-.chart-box p {
+.data-main {
     font-size: 3rem;
     margin: 0;
+}
+
+.data-extra {
+  margin: 0;
 }
 
 .chart-1 {

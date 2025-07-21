@@ -32,12 +32,12 @@
   transform: translateY(0);
 }
 
-/* === Filter Options Layout === */
 .filter-options-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   margin-top: 5vh;
 }
 
@@ -104,6 +104,10 @@
   width: 35%;
   border-radius: 10px;
   font-size: 20px;
+}
+
+.map-filter {
+  width: 75%;
 }
 
 .option-select > option {

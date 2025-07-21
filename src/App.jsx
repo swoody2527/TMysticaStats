@@ -24,7 +24,7 @@ function App() {
         <Route path='/faction-stats' element={<FactionStats/>}></Route>
         <Route path='/map-stats' element={<MapStats/>}></Route>
         <Route path='/game-tile-stats' element={<GameTileStats/>}></Route>
-        <Route path='/trends-stats' element={<TrendsOT/>}></Route>
+        <Route path='/trend-stats' element={<TrendsOT/>}></Route>
       </Routes>
       
     </main>
