@@ -3,7 +3,7 @@ import '../reusable/reusableCSS/FactionsFilter.css'
 import factionImages from '../../assets/faction-images/factionImages'
 import factionColors from '../../assets/factionColours';
 
-function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {} }) {
+function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, optionalFilters = {} }) {
     const [isExpanded, setIsExpanded] = useState(() => {
         const hasInitial =
             initialValues?.faction || initialValues?.startYear || initialValues?.endYear || initialValues?.numPlayers || initialValues?.mapID;
@@ -17,12 +17,18 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {} })
         showMaps = false,
     } = availableFilters
 
+    const {
+        optFaction = false,
+        optMap = false,
+        optNumPlayers = false,
+    } = optionalFilters
 
-    const [startYear, setStartYear] = useState(initialValues.startYear || '');
-    const [endYear, setEndYear] = useState(initialValues.endYear || '');
-    const [selectedFaction, setSelectedFaction] = useState(initialValues.faction || '');
+
+    const [startYear, setStartYear] = useState(initialValues.startYear || 2013);
+    const [endYear, setEndYear] = useState(initialValues.endYear || 2025);
+    const [selectedFaction, setSelectedFaction] = useState(initialValues.faction || 'dwarves');
     const [numPlayers, setNumPlayers] = useState(initialValues.numPlayers || 'Any');
-    const [mapID, setMapID] = useState(initialValues.map || '')
+    const [mapID, setMapID] = useState(initialValues.mapID || '126fe960806d587c78546b30f1a90853b1ada468')
 
     const handleFilterToggle = () => {
         setIsExpanded(prev => !prev)
@@ -134,6 +140,11 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {} })
                             <div className='filter-option faction'>
                                 <label>Faction</label>
                                 <div className='faction-carousel'>
+                                    {optFaction ?
+                                        <div onClick={() => setSelectedFaction('any')} className={`faction-widget ${selectedFaction == 'any' ? 'selected' : ''}`}>
+                                            <p>Any</p>
+                                        </div>
+                                        : null}
                                     {factions_new.map((faction, index) => {
                                         const isSelected = selectedFaction == faction.faction
 
@@ -168,6 +179,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {} })
                                 <label>Map</label>
                                 <div className='filter-selections'>
                                     <select value={mapID} onChange={(e) => setMapID(e.target.value)} className='option-select map-filter'>
+                                        {optMap ? <option>Any</option> : null}
                                         {Object.keys(map_keys).map((map_name, index) => (
                                             <option value={map_keys[map_name]}>{map_name}</option>
 
