@@ -37,9 +37,9 @@
 .chart-1 {
     background-color: #D9D9D9;
     color: black;
-    margin: 10px;
     height: 60vh;
     border-radius: 20px;
+    width: 95vw;
 }
 
 .chart-2 {

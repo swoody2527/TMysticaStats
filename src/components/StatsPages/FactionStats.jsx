@@ -88,7 +88,7 @@ function FactionStats() {
       s_year: Number(startYear),
       e_year: Number(endYear),
       faction: faction.toLowerCase().replaceAll(' ', ''),
-      num_players: numPlayers === 'Any' || !numPlayers ? undefined : Number(numPlayers)
+      num_players: numPlayers === 'any' || !numPlayers ? undefined : Number(numPlayers)
     };
 
     const fetchData = async () => {

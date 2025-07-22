@@ -27,7 +27,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
     const [startYear, setStartYear] = useState(initialValues.startYear || 2013);
     const [endYear, setEndYear] = useState(initialValues.endYear || 2025);
     const [selectedFaction, setSelectedFaction] = useState(initialValues.faction || 'dwarves');
-    const [numPlayers, setNumPlayers] = useState(initialValues.numPlayers || 'Any');
+    const [numPlayers, setNumPlayers] = useState(initialValues.numPlayers || 'any');
     const [mapID, setMapID] = useState(initialValues.mapID || '126fe960806d587c78546b30f1a90853b1ada468')
 
     const handleFilterToggle = () => {
@@ -91,7 +91,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
 
 
 
-    const num_players = ['Any', 2, 3, 4, 5, 6]
+    const num_players = ['any', 2, 3, 4, 5, 6]
 
 
     return (
@@ -179,7 +179,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
                                 <label>Map</label>
                                 <div className='filter-selections'>
                                     <select value={mapID} onChange={(e) => setMapID(e.target.value)} className='option-select map-filter'>
-                                        {optMap ? <option>Any</option> : null}
+                                        {optMap ? <option value={'any'}>Any</option> : null}
                                         {Object.keys(map_keys).map((map_name, index) => (
                                             <option value={map_keys[map_name]}>{map_name}</option>
 
