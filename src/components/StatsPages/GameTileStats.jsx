@@ -100,17 +100,47 @@ function GameTileStats() {
 
   ]
 
+  const favTiles = [
+    'FAV1',
+    'FAV2',
+    'FAV3',
+    'FAV4',
+    'FAV5',
+    'FAV6',
+    'FAV7',
+    'FAV8',
+    'FAV9',
+    'FAV10',
+    'FAV11',
+    'FAV12'
+  ]
+
+  const townTiles = [
+    'TW1',
+    'TW2',
+    'TW3',
+    'TW4',
+    'TW5',
+    'TW6',
+    'TW7',
+    'TW8'
+  ]
+
   const roundColors = [
-  '#4e79a7',
-  '#f28e2b',
-  '#e15759',
-  '#76b7b2',
-  '#59a14f',
-  '#edc949',
-  '#af7aa1',
-  '#ff9da7',
-  '#9c755f'
-];
+    '#4e79a7',
+    '#f28e2b',
+    '#e15759',
+    '#76b7b2',
+    '#59a14f',
+    '#edc949',
+    '#af7aa1',
+    '#ff9da7',
+    '#834b2bff',
+    '#0c3b1bff',
+    '#d37295',
+    '#fabfd2'
+  ];
+
 
 
 
@@ -147,12 +177,16 @@ function GameTileStats() {
           })
         ));
 
+        const vpGainSorted =  Object.fromEntries(Object.entries(vpGainScoreTile.data).sort(
+          ([, a], [, b]) => b - a
+        ))
+
         setFilterData({
           scoreTileFreq: scoreFreq.data,
           bonusTilePop: bonusPop.data,
           favorTilesFaction: favorTiles.data,
           townTilesFaction: townTiles.data,
-          vpGainedByScoreTile: vpGainScoreTile.data,
+          vpGainedByScoreTile: vpGainSorted,
         });
         setIsLoading(false)
       } catch (err) {
@@ -176,8 +210,8 @@ function GameTileStats() {
       />
       {isLoading ? <p>Loading!</p> :
         <div className='general-stats-container'>
-          
-          
+
+
           <div className='chart-box chart-1'>
             <Bar
               data={{
@@ -216,7 +250,7 @@ function GameTileStats() {
             />
           </div>
 
-           <div className='chart-box chart-1'>
+          <div className='chart-box chart-1'>
             <Bar
               data={{
                 labels: Object.keys(filterData.bonusTilePop),
@@ -248,6 +282,141 @@ function GameTileStats() {
                   title: {
                     display: true,
                     text: 'Percentage of games by player count.',
+                  },
+                },
+              }}
+            />
+          </div>
+
+
+
+
+          <div className='chart-box chart-1'>
+            <Bar
+              data={{
+                labels: Object.keys(filterData.favorTilesFaction),
+                datasets: favTiles.map((tile, index) => ({
+                  label: tile,
+                  data: Object.keys(filterData.favorTilesFaction).map(round =>
+                    filterData.favorTilesFaction[round] && filterData.favorTilesFaction[round][tile] != null
+                      ? filterData.favorTilesFaction[round][tile]
+                      : 0
+                  ),
+                  backgroundColor: roundColors[index]
+                }))
+              }}
+              options={{
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                  x: {
+                    stacked: true,
+                    min: 0,
+                    max: 100
+                  },
+                  y: {
+                    stacked: true,
+                    beginAtZero: true,
+                  }
+                },
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Percentage of favor tiles taken by faction.',
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <div className='chart-box chart-1'>
+            <Bar
+              data={{
+                labels: Object.keys(filterData.townTilesFaction),
+                datasets: townTiles.map((tile, index) => ({
+                  label: tile,
+                  data: Object.keys(filterData.townTilesFaction).map(round =>
+                    filterData.townTilesFaction[round] && filterData.townTilesFaction[round][tile] != null
+                      ? filterData.townTilesFaction[round][tile]
+                      : 0
+                  ),
+                  backgroundColor: roundColors[index]
+                }))
+              }}
+              options={{
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                  x: {
+                    stacked: true,
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                      stepSize: 10
+                    }
+        
+                  },
+                  y: {
+                    stacked: true,
+                    beginAtZero: true,
+                  }
+                },
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Percentage of town tiles taken by faction.',
+                  },
+                },
+              }}
+            />
+          </div>
+
+
+          <div className='chart-box chart-1'>
+            <Bar
+              data={{
+                labels: Object.keys(filterData.vpGainedByScoreTile),
+                datasets: [
+                  {
+                    label: 'Vp Change',
+                    data: Object.values(filterData.vpGainedByScoreTile),
+                    backgroundColor: roundColors
+                  }
+                ]
+              }}
+              options={{
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                  x: {
+                    stacked: true,
+                    min: Math.round(Math.min(...Object.values(filterData.vpGainedByScoreTile))),
+                    max: Math.round(Math.max(...Object.values(filterData.vpGainedByScoreTile))),
+                    ticks: {
+                      stepSize: 2
+                    }
+                  },
+                  y: {
+                    stacked: true,
+                    beginAtZero: true,
+                  }
+                },
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'VP Gain/Loss on specific scoring tile.',
                   },
                 },
               }}
