@@ -17,7 +17,9 @@
 }
 
 .chart-box {
-  background-color: #D9D9D9;
+  background-image: url('https://static.vecteezy.com/system/resources/thumbnails/000/125/533/small_2x/vector-grunge-texture.jpg');
+  background-size: cover;
+  background-position: center;
   color: black;
   margin: 10px;
   height: 20vh;

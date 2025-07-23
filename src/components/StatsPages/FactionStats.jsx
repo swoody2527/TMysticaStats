@@ -79,6 +79,27 @@ function FactionStats() {
     '/wr-by-playercount'
   ];
 
+
+  const map_keys = {
+  '126fe960806d587c78546b30f1a90853b1ada468': { map_name: 'Original', color: '#4A4A4A' },
+  '91645cdb135773c2a7a50e5ca9cb18af54c664c4': { map_name: 'Original [2017 vp]', color: '#5C5C5C' },
+  '95a66999127893f5925a5f591d54f8bcb9a670e6': { map_name: 'Fire & Ice v1', color: '#FF5733' },
+  'be8f6ebf549404d015547152d5f2a1906ae8dd90': { map_name: 'Fire & Ice v2', color: '#66CCFF' },
+  'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': { map_name: 'Loon Lakes v1.6', color: '#88C999' },
+  '2afadc63f4d81e850b7c16fb21a1dcd29658c392': { map_name: 'Fjords v2.1', color: '#A9CDEB' }
+};
+
+
+  const mapColors = [
+  "#4A4A4A",
+  "#5C5C5C",
+  "#FF5733",
+  "#66CCFF",
+  "#88C999",
+  "#A9CDEB"
+];
+
+
   useEffect(() => {
     setIsLoading(true)
     const shouldFetch = faction && startYear && endYear;
@@ -213,11 +234,12 @@ function FactionStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: [1, 2, 3, 4, 5, 6],
+                labels: Object.keys(filterData.wrMaps).map(map_id => map_keys[map_id].map_name),
                 datasets: [
                   {
                     label: 'Win Percentage %',
                     data: Object.values(filterData.wrMaps).map(m => m.win_rate),
+                    backgroundColor: Object.keys(filterData.wrMaps).map(map_id => map_keys[map_id].color)
 
                   },
                 ],
@@ -276,6 +298,8 @@ function FactionStats() {
                   {
                     label: 'Victory Points',
                     data: Object.values(filterData.avgVPRound),
+                    backgroundColor: "#0d3b52ff",
+                    borderColor: "#66CCFF",
 
                   },
                 ],
@@ -313,6 +337,8 @@ function FactionStats() {
                   {
                     label: 'Pickrate %',
                     data: Object.values(filterData.popOT).map(y => y.pick_rate),
+                    backgroundColor: "#650f0fff",
+                    borderColor: "#e75766ff",
 
                   },
                 ],
