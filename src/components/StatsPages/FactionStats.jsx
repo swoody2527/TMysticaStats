@@ -5,6 +5,7 @@ import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
 import '../../styles/StatsPages/FactionStats.css';
 import '../../styles/StatsPages/GeneralStats.css';
+import factionImages from '../../assets/faction-images/factionImages';
 
 import {
   Chart as ChartJS,
@@ -81,23 +82,23 @@ function FactionStats() {
 
 
   const map_keys = {
-  '126fe960806d587c78546b30f1a90853b1ada468': { map_name: 'Original', color: '#4A4A4A' },
-  '91645cdb135773c2a7a50e5ca9cb18af54c664c4': { map_name: 'Original [2017 vp]', color: '#5C5C5C' },
-  '95a66999127893f5925a5f591d54f8bcb9a670e6': { map_name: 'Fire & Ice v1', color: '#FF5733' },
-  'be8f6ebf549404d015547152d5f2a1906ae8dd90': { map_name: 'Fire & Ice v2', color: '#66CCFF' },
-  'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': { map_name: 'Loon Lakes v1.6', color: '#88C999' },
-  '2afadc63f4d81e850b7c16fb21a1dcd29658c392': { map_name: 'Fjords v2.1', color: '#A9CDEB' }
-};
+    '126fe960806d587c78546b30f1a90853b1ada468': { map_name: 'Original', color: '#4A4A4A' },
+    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': { map_name: 'Original [2017 vp]', color: '#5C5C5C' },
+    '95a66999127893f5925a5f591d54f8bcb9a670e6': { map_name: 'Fire & Ice v1', color: '#FF5733' },
+    'be8f6ebf549404d015547152d5f2a1906ae8dd90': { map_name: 'Fire & Ice v2', color: '#66CCFF' },
+    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': { map_name: 'Loon Lakes v1.6', color: '#88C999' },
+    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': { map_name: 'Fjords v2.1', color: '#A9CDEB' }
+  };
 
 
   const mapColors = [
-  "#4A4A4A",
-  "#5C5C5C",
-  "#FF5733",
-  "#66CCFF",
-  "#88C999",
-  "#A9CDEB"
-];
+    "#4A4A4A",
+    "#5C5C5C",
+    "#FF5733",
+    "#66CCFF",
+    "#88C999",
+    "#A9CDEB"
+  ];
 
 
   useEffect(() => {
@@ -160,14 +161,26 @@ function FactionStats() {
         onSubmit={handleFilterSubmit}
         initialValues={{ faction, startYear, endYear, numPlayers }
         }
-        availableFilters={{showFaction: true, showYears: true, showNumPlayers: true }}
+        availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true }}
       />
       {isLoading ? <p>Loading Stats!</p> :
         <div className='general-stats-container'>
-          <h3>Faction Statistics!</h3>
-          <p>Faction: {faction}</p>
-          <p>Year Range: {startYear} to {endYear}</p>
-          <p>No. Players: {numPlayers}</p>
+          <h3 className='page-header'>Faction Statistics</h3>
+          <div className='filter-info'>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Faction</p>
+              <p className='filter-info-text'>{faction}</p>
+              <img src={factionImages[faction.split(' ').join('')]} />
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Year Range</p>
+              <p className='filter-info-text'>{startYear} to {endYear}</p>
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>No. Players</p>
+              <p className='filter-info-text'>{numPlayers}</p>
+            </div>
+          </div>
           <div className='static-stats'>
             <div className='chart-box chart-3'>
               <h3>Total Games Played</h3>
@@ -369,29 +382,29 @@ function FactionStats() {
             />
           </div>
           <div className='chart-box chart-4'>
-          <Doughnut
-            data={{
-              labels: Object.keys(filterData.wrByPlayercount),
-              datasets: [
-                {
-                  label: 'Winrate %',
-                  data: Object.values(filterData.wrByPlayercount).map(c => c.win_rate),
+            <Doughnut
+              data={{
+                labels: Object.keys(filterData.wrByPlayercount),
+                datasets: [
+                  {
+                    label: 'Winrate %',
+                    data: Object.values(filterData.wrByPlayercount).map(c => c.win_rate),
+                  }
+                ]
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Winrate by player count.'
+                  }
                 }
-              ]
-            }}
-            options={{
-              plugins: {
-                title: {
-                  display: true,
-                  text: 'Winrate by player count.'
-                }
-              }
-            }}
-          >
+              }}
+            >
 
-          </Doughnut>
+            </Doughnut>
 
-        </div>
+          </div>
 
         </div>
       }

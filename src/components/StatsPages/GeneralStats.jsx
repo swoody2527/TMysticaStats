@@ -16,6 +16,7 @@ import {
 } from 'chart.js';
 
 import { Bar, Doughnut, PolarArea } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
   CategoryScale,
@@ -25,16 +26,20 @@ ChartJS.register(
   RadialLinearScale,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
+
+ChartJS.defaults.plugins.datalabels.display = false;
+
 
 function GeneralStats() {
 
   return (
     <main>
       <BackHeader />
-      <div className='general-stats-container'>
-        <h3>General Game Statistics</h3>
+      <div className='general-stats-container no-filter'>
+        <h3 className='page-header'>General Game Statistics</h3>
         <div className='chart-box chart-1'>
           <Bar
             data={{
@@ -87,8 +92,12 @@ function GeneralStats() {
                   position: 'top',
                 },
                 title: {
+                  color: "#000000ff",
                   display: true,
                   text: 'Faction Win Rates',
+                  font: {
+                    size: 20
+                  }
                 },
               },
             }}
@@ -98,15 +107,15 @@ function GeneralStats() {
         <div className='static-stats'>
           <div className='chart-box chart-3'>
             <h3>Total Games</h3>
-            <p>{generalStats.total_games.toLocaleString()}</p>
+            <p className='data-main'>{generalStats.total_games.toLocaleString()}</p>
           </div>
           <div className='chart-box chart-2'>
             <h3>Avg Winning VP</h3>
-            <p>{generalStats.vp_scores.win_avg}</p>
+            <p className='data-main'>{generalStats.vp_scores.win_avg}</p>
           </div>
           <div className='chart-box chart-2'>
             <h3>Avg VP Per Player</h3>
-            <p>{generalStats.vp_scores.per_player_avg}</p>
+            <p className='data-main'>{generalStats.vp_scores.per_player_avg}</p>
           </div>
         </div>
         <div className='chart-box chart-1'>
@@ -115,7 +124,7 @@ function GeneralStats() {
               labels: Object.keys(generalStats['faction_pick%']),
               datasets: [
                 {
-                  label: 'Win Percentage %',
+                  label: 'Pickrate %',
                   data: Object.values(generalStats['faction_pick%']),
                   backgroundColor: [
                     "#A9A9A9",
@@ -163,8 +172,12 @@ function GeneralStats() {
                   position: 'top',
                 },
                 title: {
+                  color: "#000000ff",
                   display: true,
-                  text: 'Faction Win Rates',
+                  text: 'Faction Pickrate %',
+                  font: {
+                    size: 20
+                  }
                 },
               },
             }}
@@ -193,9 +206,26 @@ function GeneralStats() {
             }}
             options={{
               plugins: {
-                title: {
+                datalabels: {
                   display: true,
-                  text: 'Player Counts'
+                  color: 'black',        // text color
+                  font: {
+                    weight: 'bold',
+                    size: 30
+                  },
+                  borderWidth: 0,        // no box border
+                  textStrokeColor: 'white',
+                  textStrokeWidth: 2,    // white border around the text
+                  formatter: (value, context) => context.chart.data.labels[context.dataIndex]
+                },
+
+                title: {
+                  color: "#000000ff",
+                  display: true,
+                  text: 'Overall Games By Player Count',
+                  font: {
+                    size: 20
+                  }
                 }
               }
             }}
@@ -227,8 +257,12 @@ function GeneralStats() {
             options={{
               plugins: {
                 title: {
+                  color: "#000000ff",
                   display: true,
-                  text: 'Player Counts'
+                  text: 'Overall Games By Map',
+                  font: {
+                    size: 20
+                  }
                 }
               }
             }}
