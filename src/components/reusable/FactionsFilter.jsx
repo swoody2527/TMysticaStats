@@ -86,7 +86,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
         { faction: 'Acolytes', color: '#6f00ff' },
         { faction: 'Dragonlords', color: '#b30000' },
         { faction: 'Riverwalkers', color: '#0099ff' },
-        { faction: 'Shapeshifters', color: '#a87000' }
+        { faction: 'Shapeshifters', color: '#a87000' },
     ];
 
 
@@ -143,6 +143,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
                                     {optFaction ?
                                         <div onClick={() => setSelectedFaction('any')} className={`faction-widget ${selectedFaction == 'any' ? 'selected' : ''}`}>
                                             <p>Any</p>
+                                            <img src={factionImages.Any} />
                                         </div>
                                         : null}
                                     {factions_new.map((faction, index) => {

@@ -39,6 +39,7 @@ ChartJS.register(
 function TrendsOT() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const [filterData, setFilterData] = useState({
     winRate: null,
@@ -53,6 +54,7 @@ function TrendsOT() {
   const endYear = searchParams.get('endYear');
 
   const handleFilterSubmit = (data) => {
+    setHasSearched(true)
     setSearchParams({
       startYear: data.yearRange[0],
       endYear: data.yearRange[1],
@@ -160,8 +162,22 @@ function TrendsOT() {
         initialValues={{ startYear, endYear }}
         availableFilters={{ showYears: true }}
       />
-      {isLoading ? <p>Loading!</p> :
+      {!hasSearched ? <p>No Search!</p> : isLoading ?
+        <div>
+          <span className='loader'></span>
+          <p>Compiling Statistics...</p>
+        </div> :
         <div className='general-stats-container'>
+          <h3 className='page-header'>Trend Statistics</h3>
+          <div className='filter-info'>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Year Range</p>
+              <p className='filter-info-text'>From: {startYear}</p>
+              <p className='filter-info-text'>To: {endYear}</p>
+            </div>
+
+
+          </div>
 
           <div className='chart-box chart-1'>
             <Line

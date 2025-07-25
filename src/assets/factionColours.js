@@ -2,7 +2,7 @@ const factionColors = {
   alchemists: '#6f00ff',
   auren: '#007f0e',
   chaosmagicians: '#b30000',
-  cultists: '#6f00ff',
+  cultists: '#a87000',
   darklings: '#6f00ff',
   dwarves: '#8c8c8c',
   engineers: '#8c8c8c',

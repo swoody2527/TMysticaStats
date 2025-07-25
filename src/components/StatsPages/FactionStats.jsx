@@ -39,6 +39,7 @@ ChartJS.register(
 
 function FactionStats() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [hasSearched, setHasSearched] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   const [filterData, setFilterData] = useState({
@@ -59,6 +60,7 @@ function FactionStats() {
   const numPlayers = searchParams.get('numPlayers');
 
   const handleFilterSubmit = (data) => {
+    setHasSearched(true)
     setSearchParams({
       startYear: data.yearRange[0],
       endYear: data.yearRange[1],
@@ -91,14 +93,13 @@ function FactionStats() {
   };
 
 
-  const mapColors = [
-    "#4A4A4A",
-    "#5C5C5C",
-    "#FF5733",
-    "#66CCFF",
-    "#88C999",
-    "#A9CDEB"
+  const playerCountColors = [
+    "#FF6B6B", 
+    "#4ECDC4", 
+    "#1A535C", 
+    "#FFE66D", 
   ];
+
 
 
   useEffect(() => {
@@ -163,18 +164,23 @@ function FactionStats() {
         }
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true }}
       />
-      {isLoading ? <p>Loading Stats!</p> :
+      {!hasSearched ? <p>No Search!</p> : isLoading ? 
+      <div>
+        <span className='loader'></span>
+        <p>Compiling Statistics...</p> 
+      </div>
+      :
         <div className='general-stats-container'>
-          <h3 className='page-header'>Faction Statistics</h3>
+          <h3 className='page-header'>{faction} Statistics</h3>
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Faction</p>
-              <p className='filter-info-text'>{faction}</p>
               <img src={factionImages[faction.split(' ').join('')]} />
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>
-              <p className='filter-info-text'>{startYear} to {endYear}</p>
+              <p className='filter-info-text'>From: {startYear}</p>
+              <p className='filter-info-text'>To: {endYear}</p>
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>No. Players</p>
@@ -389,6 +395,7 @@ function FactionStats() {
                   {
                     label: 'Winrate %',
                     data: Object.values(filterData.wrByPlayercount).map(c => c.win_rate),
+                    backgroundColor: Object.values(filterData.wrByPlayercount).map((count, index) => playerCountColors[index])
                   }
                 ]
               }}

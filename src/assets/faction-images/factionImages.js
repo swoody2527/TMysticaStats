@@ -18,6 +18,7 @@ import Acolytes from './Acolytes.png';
 import Dragonlords from './Dragonlords.png';
 import Riverwalkers from './Riverwalkers.png';
 import Shapeshifters from './Shapeshifters.png';
+import Any from './Any.png'
 
 const factionImages = {
   Alchemists,
@@ -39,7 +40,8 @@ const factionImages = {
   Acolytes,
   Dragonlords,
   Riverwalkers,
-  Shapeshifters
+  Shapeshifters,
+  Any
 };
 
 export default factionImages;

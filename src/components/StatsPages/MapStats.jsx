@@ -39,6 +39,7 @@ ChartJS.register(
 function MapStats() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const [filterData, setFilterData] = useState({
     gamesPerMap: null,
@@ -54,6 +55,7 @@ function MapStats() {
   const mapID = searchParams.get('mapID')
 
   const handleFilterSubmit = (data) => {
+    setHasSearched(true)
     setSearchParams({
       startYear: data.yearRange[0],
       endYear: data.yearRange[1],
@@ -71,13 +73,13 @@ function MapStats() {
   ]
 
   const map_keys = {
-        '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
-        '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
-        '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
-        'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
-        'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
-        '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
-    }
+    '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
+    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
+    '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
+    'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
+    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
+    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
+  }
 
   const playerCounts = ['2p', '3p', '4p', '5p', '6p']
   const mapPlayerCountColors = [
@@ -156,8 +158,25 @@ function MapStats() {
         initialValues={{ startYear, endYear, mapID }}
         availableFilters={{ showMaps: true, showYears: true }} />
 
-      {isLoading ? <h3>Loading!</h3> :
+      {!hasSearched ? <p>No Search!</p> : isLoading ?
+        <div>
+          <span className='loader'></span>
+          <p>Compiling Statistics...</p>
+        </div>
+        :
         <div className='general-stats-container'>
+          <h3 className='page-header'>{map_keys[mapID]} Map Statistics</h3>
+          <div className='filter-info'>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Map</p>
+              <p className='filter-info-text'>{map_keys[mapID]}</p>
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Year Range</p>
+              <p className='filter-info-text'>From: {startYear}</p>
+              <p className='filter-info-text'>To: {endYear}</p>
+            </div>
+          </div>
           <div className='static-stats'>
             <div className='chart-box chart-3'>
               <h3>Games Played</h3>
@@ -203,7 +222,7 @@ function MapStats() {
             />
           </div>
 
-           <div className='chart-box chart-1'>
+          <div className='chart-box chart-1'>
             <Bar
               data={{
                 labels: Object.keys(filterData.prPerMap),
@@ -371,7 +390,7 @@ function MapStats() {
             />
           </div>
 
-          
+
 
         </div>
       }

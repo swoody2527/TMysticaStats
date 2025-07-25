@@ -5,6 +5,7 @@ import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
 import '../../styles/StatsPages/FactionStats.css';
 import '../../styles/StatsPages/GeneralStats.css';
+import factionImages from '../../assets/faction-images/factionImages';
 
 import {
   Chart as ChartJS,
@@ -39,6 +40,7 @@ ChartJS.register(
 function GameTileStats() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const [filterData, setFilterData] = useState({
     scoreTileFreq: null,
@@ -57,6 +59,7 @@ function GameTileStats() {
   const mapID = searchParams.get('mapID')
 
   const handleFilterSubmit = (data) => {
+    setHasSearched(true)
     setSearchParams({
       startYear: data.yearRange[0],
       endYear: data.yearRange[1],
@@ -141,6 +144,15 @@ function GameTileStats() {
     '#fabfd2'
   ];
 
+  const map_keys = {
+    '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
+    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
+    '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
+    'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
+    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
+    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
+  }
+
 
 
 
@@ -177,7 +189,7 @@ function GameTileStats() {
           })
         ));
 
-        const vpGainSorted =  Object.fromEntries(Object.entries(vpGainScoreTile.data).sort(
+        const vpGainSorted = Object.fromEntries(Object.entries(vpGainScoreTile.data).sort(
           ([, a], [, b]) => b - a
         ))
 
@@ -208,9 +220,34 @@ function GameTileStats() {
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true, showMaps: true }}
         optionalFilters={{ optFaction: true, optMap: true }}
       />
-      {isLoading ? <p>Loading!</p> :
+      {!hasSearched ? <p>No Search!</p> : isLoading ?
+        <div>
+          <span className='loader'></span>
+          <p>Compiling Statistics...</p>
+        </div>
+        :
         <div className='general-stats-container'>
+          <h3 className='page-header'>Game Tile Statistics</h3>
+          <div className='filter-info'>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Faction</p>
+              <img src={factionImages[faction.split(' ').join('')] || factionImages.Any}  />
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Year Range</p>
+              <p className='filter-info-text'>From: {startYear}</p>
+              <p className='filter-info-text'>To: {endYear}</p>
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>No. Players</p>
+              <p className='filter-info-text'>{numPlayers}</p>
+            </div>
+            <div className='filter-widget'>
+              <p className='filter-info-label'>Map</p>
+              <p className='filter-info-text'>{map_keys[mapID] || 'Any'}</p>
+            </div>
 
+            </div>
 
           <div className='chart-box chart-1'>
             <Bar
@@ -359,7 +396,7 @@ function GameTileStats() {
                     ticks: {
                       stepSize: 10
                     }
-        
+
                   },
                   y: {
                     stacked: true,
