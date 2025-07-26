@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { data, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
 import '../../styles/StatsPages/FactionStats.css';
 import '../../styles/StatsPages/GeneralStats.css';
+import { factionInformation, mapInformation } from '../../assets/infoDicts';
 
 import {
   Chart as ChartJS,
@@ -20,7 +21,7 @@ import {
   LineElement,
 } from 'chart.js';
 
-import { Bar, Doughnut, PolarArea, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import factionColors from '../../assets/factionColours';
 
 ChartJS.register(
@@ -67,54 +68,6 @@ function TrendsOT() {
     '/map-picks-ot',
     '/played-games-ot'
   ]
-
-  const factionsNames = [
-    "acolytes",
-    "alchemists",
-    "auren",
-    "chaosmagicians",
-    "cultists",
-    "darklings",
-    "dragonlords",
-    "dwarves",
-    "engineers",
-    "fakirs",
-    "giants",
-    "halflings",
-    "icemaidens",
-    "mermaids",
-    "nomads",
-    "riverwalkers",
-    "shapeshifters",
-    "swarmlings",
-    "witches",
-    "yetis",
-  ]
-
-  const map_keys = {
-    '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
-    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
-    '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
-    'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
-    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
-    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
-  }
-
-
-  const roundColors = [
-    '#4e79a7',
-    '#f28e2b',
-    '#e15759',
-    '#76b7b2',
-    '#59a14f',
-    '#edc949',
-    '#af7aa1',
-    '#ff9da7',
-    '#834b2bff',
-    '#0c3b1bff',
-    '#d37295',
-    '#fabfd2'
-  ];
 
   useEffect(() => {
     setIsLoading(true)
@@ -183,11 +136,12 @@ function TrendsOT() {
             <Line
               data={{
                 labels: Object.keys(filterData.winRate),
-                datasets: factionsNames.map((faction, index) => ({
-                  label: faction,
+                datasets: Object.keys(factionInformation).map((faction, index) => ({
+                  label: factionInformation[faction].name,
                   data: Object.keys(filterData.winRate).map(year => filterData.winRate[year][faction]),
                   backgroundColor: factionColors[faction],
-                  borderColor: factionColors[faction]
+                  borderColor: factionColors[faction],
+                  hidden: true,
                 }))
               }}
               options={{
@@ -204,8 +158,12 @@ function TrendsOT() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'VP By Round.',
+                    text: 'Winrate over time.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -218,11 +176,12 @@ function TrendsOT() {
             <Line
               data={{
                 labels: Object.keys(filterData.pickRate),
-                datasets: factionsNames.map((faction, index) => ({
-                  label: faction,
+                datasets: Object.keys(factionInformation).map((faction, index) => ({
+                  label: factionInformation[faction].name,
                   data: Object.keys(filterData.pickRate).map(year => filterData.pickRate[year][faction]),
                   backgroundColor: factionColors[faction],
-                  borderColor: factionColors[faction]
+                  borderColor: factionColors[faction],
+                  hidden: true
                 }))
               }}
               options={{
@@ -239,8 +198,12 @@ function TrendsOT() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'VP By Round.',
+                    text: 'Pickrate over time.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -252,11 +215,11 @@ function TrendsOT() {
             <Line
               data={{
                 labels: Object.keys(filterData.mapsOT),
-                datasets: Object.keys(map_keys).map((map_id, index) => ({
-                  label: map_keys[map_id],
+                datasets: Object.keys(mapInformation).map((map_id, index) => ({
+                  label: mapInformation[map_id].map_name,
                   data: Object.keys(filterData.mapsOT).map(year => filterData.mapsOT[year][map_id]),
-                  backgroundColor: roundColors[index],
-                  borderColor: roundColors[index]
+                  backgroundColor: mapInformation[map_id].color,
+                  borderColor: mapInformation[map_id].color
                 }))
               }}
               options={{
@@ -273,8 +236,12 @@ function TrendsOT() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'VP By Round.',
+                    text: 'Games on specifc map over time.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -308,8 +275,12 @@ function TrendsOT() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'VP By Round.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}

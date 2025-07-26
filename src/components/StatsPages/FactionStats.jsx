@@ -23,6 +23,7 @@ import {
 
 import { Bar, Doughnut, PolarArea, Line } from 'react-chartjs-2';
 import factionColors from '../../assets/factionColours';
+import { factionInformation, mapInformation } from '../../assets/infoDicts';
 
 ChartJS.register(
   CategoryScale,
@@ -81,16 +82,6 @@ function FactionStats() {
     '/faction-popularity-ot',
     '/wr-by-playercount'
   ];
-
-
-  const map_keys = {
-    '126fe960806d587c78546b30f1a90853b1ada468': { map_name: 'Original', color: '#4A4A4A' },
-    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': { map_name: 'Original [2017 vp]', color: '#5C5C5C' },
-    '95a66999127893f5925a5f591d54f8bcb9a670e6': { map_name: 'Fire & Ice v1', color: '#FF5733' },
-    'be8f6ebf549404d015547152d5f2a1906ae8dd90': { map_name: 'Fire & Ice v2', color: '#66CCFF' },
-    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': { map_name: 'Loon Lakes v1.6', color: '#88C999' },
-    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': { map_name: 'Fjords v2.1', color: '#A9CDEB' }
-  };
 
 
   const playerCountColors = [
@@ -171,11 +162,11 @@ function FactionStats() {
       </div>
       :
         <div className='general-stats-container'>
-          <h3 className='page-header'>{faction} Statistics</h3>
+          <h3 className='page-header'>{factionInformation[faction].name} Statistics</h3>
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Faction</p>
-              <img src={factionImages[faction.split(' ').join('')]} />
+              <img src={factionImages[factionInformation[faction].name]} />
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>
@@ -242,8 +233,12 @@ function FactionStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Winrate versus other factions.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -253,12 +248,12 @@ function FactionStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.wrMaps).map(map_id => map_keys[map_id].map_name),
+                labels: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].map_name),
                 datasets: [
                   {
                     label: 'Win Percentage %',
                     data: Object.values(filterData.wrMaps).map(m => m.win_rate),
-                    backgroundColor: Object.keys(filterData.wrMaps).map(map_id => map_keys[map_id].color)
+                    backgroundColor: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].color)
 
                   },
                 ],
@@ -283,8 +278,12 @@ function FactionStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Winrate By Map.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -341,8 +340,12 @@ function FactionStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'VP By Round.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -380,8 +383,12 @@ function FactionStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Pickrate over time.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -402,8 +409,12 @@ function FactionStats() {
               options={{
                 plugins: {
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'Winrate by player count.'
+                    text: 'Winrate by player count.',
+                    font: {
+                      size: 20
+                    }
                   }
                 }
               }}

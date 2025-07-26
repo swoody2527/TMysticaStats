@@ -6,6 +6,7 @@ import FactionsFilter from '../reusable/FactionsFilter';
 import '../../styles/StatsPages/FactionStats.css';
 import '../../styles/StatsPages/GeneralStats.css';
 import factionImages from '../../assets/faction-images/factionImages';
+import { factionInformation, mapInformation } from '../../assets/infoDicts';
 
 import {
   Chart as ChartJS,
@@ -144,17 +145,6 @@ function GameTileStats() {
     '#fabfd2'
   ];
 
-  const map_keys = {
-    '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
-    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
-    '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
-    'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
-    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
-    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
-  }
-
-
-
 
   useEffect(() => {
     setIsLoading(true)
@@ -231,7 +221,7 @@ function GameTileStats() {
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Faction</p>
-              <img src={factionImages[faction.split(' ').join('')] || factionImages.Any}  />
+              <img src={factionImages[factionInformation[faction].name] || factionImages.Any}  />
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>
@@ -244,7 +234,7 @@ function GameTileStats() {
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Map</p>
-              <p className='filter-info-text'>{map_keys[mapID] || 'Any'}</p>
+              <p className='filter-info-text'>{mapInformation[mapID].map_name || 'Any'}</p>
             </div>
 
             </div>
@@ -279,8 +269,12 @@ function GameTileStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'Percentage of games by player count.',
+                    text: 'Score tile occurance by round.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -317,8 +311,12 @@ function GameTileStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
-                    text: 'Percentage of games by player count.',
+                    text: 'Bonus tile popularity by round.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -331,7 +329,7 @@ function GameTileStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.favorTilesFaction),
+                labels: Object.keys(filterData.favorTilesFaction).map(f => factionInformation[f].name),
                 datasets: favTiles.map((tile, index) => ({
                   label: tile,
                   data: Object.keys(filterData.favorTilesFaction).map(round =>
@@ -362,8 +360,12 @@ function GameTileStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Percentage of favor tiles taken by faction.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -373,7 +375,7 @@ function GameTileStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.townTilesFaction),
+                labels: Object.keys(filterData.townTilesFaction).map(f => factionInformation[f].name),
                 datasets: townTiles.map((tile, index) => ({
                   label: tile,
                   data: Object.keys(filterData.townTilesFaction).map(round =>
@@ -408,8 +410,12 @@ function GameTileStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Percentage of town tiles taken by faction.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -452,8 +458,12 @@ function GameTileStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'VP Gain/Loss on specific scoring tile.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}

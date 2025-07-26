@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../reusable/reusableCSS/FactionsFilter.css'
 import factionImages from '../../assets/faction-images/factionImages'
 import factionColors from '../../assets/factionColours';
+import { factionInformation } from '../../assets/infoDicts';
 
 function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, optionalFilters = {} }) {
     const [isExpanded, setIsExpanded] = useState(() => {
@@ -136,31 +137,38 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
                             : null}
 
 
-                        {showFaction ?
-                            <div className='filter-option faction'>
+                        {showFaction && (
+                            <div className="filter-option faction">
                                 <label>Faction</label>
-                                <div className='faction-carousel'>
-                                    {optFaction ?
-                                        <div onClick={() => setSelectedFaction('any')} className={`faction-widget ${selectedFaction == 'any' ? 'selected' : ''}`}>
+                                <div className="faction-carousel">
+                                    {optFaction && (
+                                        <div
+                                            onClick={() => setSelectedFaction('any')}
+                                            className={`faction-widget ${selectedFaction === 'any' ? 'selected' : ''}`}
+                                        >
                                             <p>Any</p>
                                             <img src={factionImages.Any} />
                                         </div>
-                                        : null}
-                                    {factions_new.map((faction, index) => {
-                                        const isSelected = selectedFaction == faction.faction
+                                    )}
+                                    {Object.entries(factionInformation).map(([factionId, factionData], index) => {
+                                        const isSelected = selectedFaction === factionId;
+                                        const imageKey = factionData.name.split(' ').join('');
 
                                         return (
-                                            <div key={index} className={`faction-widget ${isSelected ? 'selected' : ''}`} style={{ backgroundColor: faction.color }}
-                                                onClick={() => setSelectedFaction(faction.faction)}>
-                                                <p>{faction.faction}</p>
-                                                <img src={factionImages[faction.faction.split(' ').join('')]} />
+                                            <div
+                                                key={index}
+                                                className={`faction-widget ${isSelected ? 'selected' : ''}`}
+                                                style={{ backgroundColor: factionData.color }}
+                                                onClick={() => setSelectedFaction(factionId)}
+                                            >
+                                                <p>{factionData.name}</p>
+                                                <img src={factionImages[imageKey]} />
                                             </div>
-                                        )
+                                        );
                                     })}
                                 </div>
                             </div>
-
-                            : null}
+                        )}
 
                         {showNumPlayers ?
                             <div className='filter-option'>

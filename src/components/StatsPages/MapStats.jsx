@@ -5,6 +5,7 @@ import { data, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/StatsPages/GeneralStats.css'
+import { factionInformation, mapInformation } from '../../assets/infoDicts';
 
 
 import {
@@ -72,16 +73,8 @@ function MapStats() {
     '/performance-variation'
   ]
 
-  const map_keys = {
-    '126fe960806d587c78546b30f1a90853b1ada468': 'Original',
-    '91645cdb135773c2a7a50e5ca9cb18af54c664c4': 'Original [2017 vp]',
-    '95a66999127893f5925a5f591d54f8bcb9a670e6': 'Fire & Ice v1',
-    'be8f6ebf549404d015547152d5f2a1906ae8dd90': 'Fire & Ice v2',
-    'fdb13a13cd48b7a3c3525f27e4628ff6905aa5b1': 'Loon Lakes v1.6',
-    '2afadc63f4d81e850b7c16fb21a1dcd29658c392': 'Fjords v2.1'
-  }
-
   const playerCounts = ['2p', '3p', '4p', '5p', '6p']
+  
   const mapPlayerCountColors = [
     '#3366cc',
     '#dc3912',
@@ -165,11 +158,11 @@ function MapStats() {
         </div>
         :
         <div className='general-stats-container'>
-          <h3 className='page-header'>{map_keys[mapID]} Map Statistics</h3>
+          <h3 className='page-header'>{mapInformation[mapID].map_name} Map Statistics</h3>
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Map</p>
-              <p className='filter-info-text'>{map_keys[mapID]}</p>
+              <p className='filter-info-text'>{mapInformation[mapID].map_name}</p>
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>
@@ -188,7 +181,7 @@ function MapStats() {
             <Bar
               data={{
                 labels: [...Object.keys(filterData.avgPlayersPerMap).map(
-                  key => map_keys[key]
+                  key => mapInformation[key].map_name
                 )],
                 datasets: playerCounts.map((count, index) => ({
                   label: count,
@@ -214,8 +207,12 @@ function MapStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Percentage of games by player count.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -225,12 +222,12 @@ function MapStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.prPerMap),
+                labels: Object.keys(filterData.prPerMap).map(f => factionInformation[f].name),
                 datasets: [
                   {
                     label: 'Pick Percentage %',
                     data: Object.values(filterData.prPerMap),
-                    backgroundColor: Object.keys(filterData.prPerMap).map(f => factionColors[f])
+                    backgroundColor: Object.keys(filterData.prPerMap).map(f => factionInformation[f].color)
 
                   },
                 ],
@@ -254,8 +251,12 @@ function MapStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Pickrate on map.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -269,12 +270,12 @@ function MapStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.winratePerMap),
+                labels: Object.keys(filterData.winratePerMap).map(f => factionInformation[f].name),
                 datasets: [
                   {
                     label: 'Winrate %',
                     data: Object.values(filterData.winratePerMap),
-                    backgroundColor: Object.keys(filterData.winratePerMap).map(f => factionColors[f])
+                    backgroundColor: Object.keys(filterData.winratePerMap).map(f => factionInformation[f].color)
 
                   },
                 ],
@@ -298,8 +299,12 @@ function MapStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Winrates on map',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -311,12 +316,12 @@ function MapStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.avgVPPerMap),
+                labels: Object.keys(filterData.avgVPPerMap).map(f => factionInformation[f].name),
                 datasets: [
                   {
                     label: 'Victory Points',
                     data: Object.values(filterData.avgVPPerMap),
-                    backgroundColor: Object.keys(filterData.avgVPPerMap).map(f => factionColors[f])
+                    backgroundColor: Object.keys(filterData.avgVPPerMap).map(f => factionInformation[f].color)
 
                   },
                 ],
@@ -340,8 +345,12 @@ function MapStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Avg VP scored on map.',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}
@@ -352,12 +361,12 @@ function MapStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.performanceVar),
+                labels: Object.keys(filterData.performanceVar).map(f => factionInformation[f].name),
                 datasets: [
                   {
                     label: 'Performance Difference',
                     data: Object.values(filterData.performanceVar),
-                    backgroundColor: Object.keys(filterData.performanceVar).map(f => factionColors[f])
+                    backgroundColor: Object.keys(filterData.performanceVar).map(f => factionInformation[f].color)
 
                   },
                 ],
@@ -382,8 +391,12 @@ function MapStats() {
                     position: 'top',
                   },
                   title: {
+                    color: "#000000ff",
                     display: true,
                     text: 'Winrate difference on map (compared to global)',
+                    font: {
+                      size: 20
+                    }
                   },
                 },
               }}

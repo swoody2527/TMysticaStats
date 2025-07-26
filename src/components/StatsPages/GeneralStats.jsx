@@ -2,6 +2,7 @@ import React from 'react'
 import BackHeader from '../reusable/BackHeader'
 import '../../styles/StatsPages/GeneralStats.css'
 import generalStats from '../../../general_stats.json'
+import { mapInformation, factionInformation, mapInformationByName } from '../../assets/infoDicts'
 
 import {
   Chart as ChartJS,
@@ -43,33 +44,12 @@ function GeneralStats() {
         <div className='chart-box chart-1'>
           <Bar
             data={{
-              labels: Object.keys(generalStats['win_rate%']),
+              labels: Object.keys(generalStats['win_rate%']).map(faction => factionInformation[faction].name),
               datasets: [
                 {
                   label: 'Win Percentage %',
                   data: Object.values(generalStats['win_rate%']),
-                  backgroundColor: [
-                    "#4B4B4B",
-                    "#C0392B",
-                    "#4B4B4B",
-                    "#D35400",
-                    "#5DADE2",
-                    "#2980B9",
-                    "#C0392B",
-                    "#2980B9",
-                    "#229954",
-                    "#85C1E9",
-                    "#4B4B4B",
-                    "#F1C40F",
-                    "#F1C40F",
-                    "#4B4B4B",
-                    "#85C1E9",
-                    "#229954",
-                    "#C0392B",
-                    "#D35400",
-                    "#D35400",
-                    "#F1C40F"
-                  ]
+                  backgroundColor: Object.keys(generalStats['win_rate%']).map(faction => factionInformation[faction].color)
                   ,
                 },
               ],
@@ -121,33 +101,12 @@ function GeneralStats() {
         <div className='chart-box chart-1'>
           <Bar
             data={{
-              labels: Object.keys(generalStats['faction_pick%']),
+              labels: Object.keys(generalStats['faction_pick%']).map(faction => factionInformation[faction].name),
               datasets: [
                 {
                   label: 'Pickrate %',
                   data: Object.values(generalStats['faction_pick%']),
-                  backgroundColor: [
-                    "#A9A9A9",
-                    "#F7DC6F",
-                    "#E57373",
-                    "#85C1E9",
-                    "#7DCEA0",
-                    "#F5B041",
-                    "#85C1E9",
-                    "#F7DC6F",
-                    "#A9A9A9",
-                    "#A9A9A9",
-                    "#F5B041",
-                    "#F5B041",
-                    "#7DCEA0",
-                    "#AED6F1",
-                    "#F7DC6F",
-                    "#AED6F1",
-                    "#E57373",
-                    "#A9CCE3",
-                    "#A9A9A9",
-                    "#E57373"
-                  ]
+                  backgroundColor: Object.keys(generalStats['faction_pick%']).map(faction => factionInformation[faction].color)
 
 
                   ,
@@ -243,14 +202,7 @@ function GeneralStats() {
                 {
                   label: 'Player Counts',
                   data: Object.values(generalStats.common_map),
-                  backgroundColor: [
-                    '#4B4B4B',
-                    '#D35400',
-                    '#F1C40F',
-                    '#2980B9',
-                    '#C0392B',
-                    '#229954',
-                  ]
+                  backgroundColor: Object.keys(generalStats.common_map).map(mapName => mapInformationByName[mapName].color)
                 }
               ]
             }}
