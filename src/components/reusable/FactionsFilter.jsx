@@ -67,32 +67,10 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
         "Dragonlords", "Riverwalkers", "Shapeshifters"
     ]
 
-    const factions_new = [
-        { faction: 'Alchemists', color: '#6f00ff' },
-        { faction: 'Auren', color: '#007f0e' },
-        { faction: 'Chaos Magicians', color: '#b30000' },
-        { faction: 'Cultists', color: '#6f00ff' },
-        { faction: 'Darklings', color: '#6f00ff' },
-        { faction: 'Dwarves', color: '#8c8c8c' },
-        { faction: 'Engineers', color: '#8c8c8c' },
-        { faction: 'Fakirs', color: '#e6ac00' },
-        { faction: 'Giants', color: '#b30000' },
-        { faction: 'Halflings', color: '#a87000' },
-        { faction: 'Mermaids', color: '#0099ff' },
-        { faction: 'Nomads', color: '#e6ac00' },
-        { faction: 'Swarmlings', color: '#0099ff' },
-        { faction: 'Witches', color: '#007f0e' },
-        { faction: 'Yetis', color: '#00ccff' },
-        { faction: 'Ice Maidens', color: '#00ccff' },
-        { faction: 'Acolytes', color: '#6f00ff' },
-        { faction: 'Dragonlords', color: '#b30000' },
-        { faction: 'Riverwalkers', color: '#0099ff' },
-        { faction: 'Shapeshifters', color: '#a87000' },
-    ];
 
 
 
-    const num_players = ['any', 2, 3, 4, 5, 6]
+    const num_players = [2, 3, 4, 5, 6]
 
 
     return (
@@ -145,6 +123,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
                                         <div
                                             onClick={() => setSelectedFaction('any')}
                                             className={`faction-widget ${selectedFaction === 'any' ? 'selected' : ''}`}
+                                            style={{backgroundColor: '#397194'}}
                                         >
                                             <p>Any</p>
                                             <img src={factionImages.Any} />
@@ -175,6 +154,7 @@ function FactionsFilter({ onSubmit, initialValues = {}, availableFilters = {}, o
                                 <label>No. Players</label>
                                 <div className='filter-selections'>
                                     <select value={numPlayers} onChange={(e) => setNumPlayers(e.target.value)} className="option-select">
+                                        <option value={'any'}>Any</option>
                                         {num_players.map((num, index) => (
                                             <option key={num}>{num}</option>
                                         ))}

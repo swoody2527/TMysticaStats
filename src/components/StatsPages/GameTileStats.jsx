@@ -169,6 +169,7 @@ function GameTileStats() {
     }
 
     const fetchData = async () => {
+      setHasSearched(true)
       try {
         const [
           scoreFreq, bonusPop, favorTiles,
@@ -210,7 +211,10 @@ function GameTileStats() {
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true, showMaps: true }}
         optionalFilters={{ optFaction: true, optMap: true }}
       />
-      {!hasSearched ? <p>No Search!</p> : isLoading ?
+      {!hasSearched ? <div>
+        <h2>No Search!</h2>
+        <p>Use the filter menu to search stats.</p>
+      </div> : isLoading ?
         <div>
           <span className='loader'></span>
           <p>Compiling Statistics...</p>
@@ -221,7 +225,7 @@ function GameTileStats() {
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Faction</p>
-              <img src={factionImages[factionInformation[faction].name] || factionImages.Any}  />
+              <img src={factionImages[factionInformation[faction].name] || factionImages.Any} />
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>
@@ -234,10 +238,10 @@ function GameTileStats() {
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Map</p>
-              <p className='filter-info-text'>{mapInformation[mapID].map_name || 'Any'}</p>
+              <p className='filter-info-text'>{mapID == 'any' ? 'Any' : mapInformation[mapID].map_name}</p>
             </div>
 
-            </div>
+          </div>
 
           <div className='chart-box chart-1'>
             <Bar

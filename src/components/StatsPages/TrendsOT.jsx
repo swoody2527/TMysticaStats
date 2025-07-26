@@ -115,7 +115,10 @@ function TrendsOT() {
         initialValues={{ startYear, endYear }}
         availableFilters={{ showYears: true }}
       />
-      {!hasSearched ? <p>No Search!</p> : isLoading ?
+      {!hasSearched ? <div>
+        <h2>No Search!</h2>
+        <p>Use the filter menu to search stats.</p>
+      </div> : isLoading ?
         <div>
           <span className='loader'></span>
           <p>Compiling Statistics...</p>

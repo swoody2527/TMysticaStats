@@ -74,7 +74,7 @@ function MapStats() {
   ]
 
   const playerCounts = ['2p', '3p', '4p', '5p', '6p']
-  
+
   const mapPlayerCountColors = [
     '#3366cc',
     '#dc3912',
@@ -151,7 +151,10 @@ function MapStats() {
         initialValues={{ startYear, endYear, mapID }}
         availableFilters={{ showMaps: true, showYears: true }} />
 
-      {!hasSearched ? <p>No Search!</p> : isLoading ?
+      {!hasSearched ? <div>
+        <h2>No Search!</h2>
+        <p>Use the filter menu to search stats.</p>
+      </div> : isLoading ?
         <div>
           <span className='loader'></span>
           <p>Compiling Statistics...</p>

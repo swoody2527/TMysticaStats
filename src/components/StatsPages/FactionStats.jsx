@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
+import ErrorComponent from '../reusable/ErrorComponent';
 import '../../styles/StatsPages/FactionStats.css';
 import '../../styles/StatsPages/GeneralStats.css';
 import factionImages from '../../assets/faction-images/factionImages';
@@ -42,6 +43,7 @@ function FactionStats() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [hasSearched, setHasSearched] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const [filterData, setFilterData] = useState({
     winRate: null,
@@ -85,15 +87,16 @@ function FactionStats() {
 
 
   const playerCountColors = [
-    "#FF6B6B", 
-    "#4ECDC4", 
-    "#1A535C", 
-    "#FFE66D", 
+    "#FF6B6B",
+    "#4ECDC4",
+    "#1A535C",
+    "#FFE66D",
   ];
 
 
 
   useEffect(() => {
+    setError(null)
     setIsLoading(true)
     const shouldFetch = faction && startYear && endYear;
     if (!shouldFetch) return;
@@ -106,6 +109,7 @@ function FactionStats() {
     };
 
     const fetchData = async () => {
+      setHasSearched(true)
       try {
         const [
           wr, pr, wrVS,
@@ -136,9 +140,11 @@ function FactionStats() {
           popOT: popOT.data,
           wrByPlayercount: wrPC.data
         });
+        setError(null)
         setIsLoading(false)
       } catch (err) {
         console.error('API fetch error:', err);
+        setError(err.response.data.error)
         setIsLoading(false)
       }
     };
@@ -155,276 +161,280 @@ function FactionStats() {
         }
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true }}
       />
-      {!hasSearched ? <p>No Search!</p> : isLoading ? 
-      <div>
-        <span className='loader'></span>
-        <p>Compiling Statistics...</p> 
-      </div>
-      :
-        <div className='general-stats-container'>
-          <h3 className='page-header'>{factionInformation[faction].name} Statistics</h3>
-          <div className='filter-info'>
-            <div className='filter-widget'>
-              <p className='filter-info-label'>Faction</p>
-              <img src={factionImages[factionInformation[faction].name]} />
-            </div>
-            <div className='filter-widget'>
-              <p className='filter-info-label'>Year Range</p>
-              <p className='filter-info-text'>From: {startYear}</p>
-              <p className='filter-info-text'>To: {endYear}</p>
-            </div>
-            <div className='filter-widget'>
-              <p className='filter-info-label'>No. Players</p>
-              <p className='filter-info-text'>{numPlayers}</p>
-            </div>
+      {error ? <ErrorComponent errorMsg={error} /> : !hasSearched ?
+        <div>
+          <h2>No Search!</h2>
+          <p>Use the filter menu to search stats.</p>
+        </div> : isLoading ?
+          <div>
+            <span className='loader'></span>
+            <p>Compiling Statistics...</p>
           </div>
-          <div className='static-stats'>
-            <div className='chart-box chart-3'>
-              <h3>Total Games Played</h3>
-              <p className='data-main'>{filterData.gamesPlayed.games_played}</p>
+          :
+          <div className='general-stats-container'>
+            <h3 className='page-header'>{factionInformation[faction].name} Statistics</h3>
+            <div className='filter-info'>
+              <div className='filter-widget'>
+                <p className='filter-info-label'>Faction</p>
+                <img src={factionImages[factionInformation[faction].name]} />
+              </div>
+              <div className='filter-widget'>
+                <p className='filter-info-label'>Year Range</p>
+                <p className='filter-info-text'>From: {startYear}</p>
+                <p className='filter-info-text'>To: {endYear}</p>
+              </div>
+              <div className='filter-widget'>
+                <p className='filter-info-label'>No. Players</p>
+                <p className='filter-info-text'>{numPlayers}</p>
+              </div>
+            </div>
+            <div className='static-stats'>
+              <div className='chart-box chart-3'>
+                <h3>Total Games Played</h3>
+                <p className='data-main'>{filterData.gamesPlayed.games_played}</p>
 
+
+              </div>
+              <div className='chart-box chart-2'>
+                <h3>Winrate</h3>
+                <p className='data-main'>{filterData.winRate.winrate}%</p>
+                <p className='data-extra'>Total Games: {filterData.winRate.total_games}</p>
+                <p className='data-extra'>Total Wins: {filterData.winRate.total_wins}</p>
+              </div>
+              <div className='chart-box chart-2'>
+                <h3>Pickrate</h3>
+                <p className='data-main'>{filterData.pickRate.pickrate}%</p>
+                <p className='data-extra'>Total Games: {filterData.pickRate.total_games}</p>
+                <p className='data-extra'>Total Picks: {filterData.pickRate.picked_games}</p>
+
+              </div>
 
             </div>
-            <div className='chart-box chart-2'>
-              <h3>Winrate</h3>
-              <p className='data-main'>{filterData.winRate.winrate}%</p>
-              <p className='data-extra'>Total Games: {filterData.winRate.total_games}</p>
-              <p className='data-extra'>Total Wins: {filterData.winRate.total_wins}</p>
-            </div>
-            <div className='chart-box chart-2'>
-              <h3>Pickrate</h3>
-              <p className='data-main'>{filterData.pickRate.pickrate}%</p>
-              <p className='data-extra'>Total Games: {filterData.pickRate.total_games}</p>
-              <p className='data-extra'>Total Picks: {filterData.pickRate.picked_games}</p>
+            <div className='chart-box chart-1'>
+              <Bar
+                data={{
+                  labels: Object.keys(filterData.wrVersus),
+                  datasets: [
+                    {
+                      label: 'Win Percentage %',
+                      data: Object.values(filterData.wrVersus).map(f => f.win_rate),
+                      backgroundColor: Object.keys(filterData.wrVersus).map(f => factionColors[f])
 
-            </div>
-
-          </div>
-          <div className='chart-box chart-1'>
-            <Bar
-              data={{
-                labels: Object.keys(filterData.wrVersus),
-                datasets: [
-                  {
-                    label: 'Win Percentage %',
-                    data: Object.values(filterData.wrVersus).map(f => f.win_rate),
-                    backgroundColor: Object.keys(filterData.wrVersus).map(f => factionColors[f])
-
-                  },
-                ],
-              }}
-              options={{
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                responsive: true,
-                scales: {
-                  x: {
-                    min: 5,
-                    max: Math.round(
-                      (Math.max(...Object.values(filterData.wrVersus).map(f => f.win_rate)) + 5) / 5
-                    ) * 5,
-                    ticks: {
-                      stepSize: 5
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: false,
+                  indexAxis: 'y',
+                  responsive: true,
+                  scales: {
+                    x: {
+                      min: 5,
+                      max: Math.round(
+                        (Math.max(...Object.values(filterData.wrVersus).map(f => f.win_rate)) + 5) / 5
+                      ) * 5,
+                      ticks: {
+                        stepSize: 5
+                      },
                     },
                   },
-                },
-                plugins: {
-                  legend: {
-                    position: 'top',
-                  },
-                  title: {
-                    color: "#000000ff",
-                    display: true,
-                    text: 'Winrate versus other factions.',
-                    font: {
-                      size: 20
-                    }
-                  },
-                },
-              }}
-            />
-
-          </div>
-          <div className='chart-box chart-1'>
-            <Bar
-              data={{
-                labels: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].map_name),
-                datasets: [
-                  {
-                    label: 'Win Percentage %',
-                    data: Object.values(filterData.wrMaps).map(m => m.win_rate),
-                    backgroundColor: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].color)
-
-                  },
-                ],
-              }}
-              options={{
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                responsive: true,
-                scales: {
-                  x: {
-                    min: 5,
-                    max: Math.round(
-                      (Math.max(...Object.values(filterData.wrMaps).map(m => m.win_rate)) + 5) / 5
-                    ) * 5,
-                    ticks: {
-                      stepSize: 5
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      color: "#000000ff",
+                      display: true,
+                      text: 'Winrate versus other factions.',
+                      font: {
+                        size: 20
+                      }
                     },
                   },
-                },
-                plugins: {
-                  legend: {
-                    position: 'top',
-                  },
-                  title: {
-                    color: "#000000ff",
-                    display: true,
-                    text: 'Winrate By Map.',
-                    font: {
-                      size: 20
-                    }
-                  },
-                },
-              }}
-            />
-          </div>
-          <h3>Victory Point Stats</h3>
-          <div className='static-stats'>
-            <div className='chart-box chart-2'>
-              <h3>Average Victory Points</h3>
-              <p className='data-main'>{Math.round(filterData.avgVP.avg_vp)}</p>
-            </div>
-            <div className='chart-box chart-2'>
-              <h3>Highest VP Acheived</h3>
-              <p className='data-main'>{Math.round(filterData.avgVP.max_vp)}</p>
-            </div>
-            <div className='chart-box chart-2'>
-              <h3>Victory Points Lower Quartile</h3>
-              <p className='data-main'>{Math.round(filterData.avgVP.vp_25_percentile)}</p>
-            </div>
-            <div className='chart-box chart-2'>
-              <h3>Victory Points Upper Quartile</h3>
-              <p className='data-main'>{Math.round(filterData.avgVP.vp_75_percentile)}</p>
-            </div>
-          </div>
-          <div className='chart-box chart-1'>
-            <Line
-              data={{
-                labels: ['Start', 'R1', 'R2', 'R3', 'R4', 'R5', 'R6'],
-                datasets: [
-                  {
-                    label: 'Victory Points',
-                    data: Object.values(filterData.avgVPRound),
-                    backgroundColor: "#0d3b52ff",
-                    borderColor: "#66CCFF",
+                }}
+              />
 
-                  },
-                ],
-              }}
-              options={{
-                maintainAspectRatio: false,
-                indexAxis: 'x',
-                responsive: true,
-                scales: {
-                  y: {
-                    min: 0,
-                    max: Math.max(...Object.values(filterData.avgVPRound)),
-                    ticks: {
-                      stepSize: 1
+            </div>
+            <div className='chart-box chart-1'>
+              <Bar
+                data={{
+                  labels: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].map_name),
+                  datasets: [
+                    {
+                      label: 'Win Percentage %',
+                      data: Object.values(filterData.wrMaps).map(m => m.win_rate),
+                      backgroundColor: Object.keys(filterData.wrMaps).map(map_id => mapInformation[map_id].color)
+
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: false,
+                  indexAxis: 'y',
+                  responsive: true,
+                  scales: {
+                    x: {
+                      min: 5,
+                      max: Math.round(
+                        (Math.max(...Object.values(filterData.wrMaps).map(m => m.win_rate)) + 5) / 5
+                      ) * 5,
+                      ticks: {
+                        stepSize: 5
+                      },
                     },
                   },
-                },
-                plugins: {
-                  legend: {
-                    position: 'top',
-                  },
-                  title: {
-                    color: "#000000ff",
-                    display: true,
-                    text: 'VP By Round.',
-                    font: {
-                      size: 20
-                    }
-                  },
-                },
-              }}
-            />
-          </div>
-          <div className='chart-box chart-1'>
-            <Line
-              data={{
-                labels: Object.keys(filterData.popOT),
-                datasets: [
-                  {
-                    label: 'Pickrate %',
-                    data: Object.values(filterData.popOT).map(y => y.pick_rate),
-                    backgroundColor: "#650f0fff",
-                    borderColor: "#e75766ff",
-
-                  },
-                ],
-              }}
-              options={{
-                maintainAspectRatio: false,
-                indexAxis: 'x',
-                responsive: true,
-                scales: {
-                  y: {
-                    min: Math.floor(Math.min(...Object.values(filterData.popOT).map(y => y.pick_rate))),
-                    max: Math.ceil(Math.max(...Object.values(filterData.popOT).map(y => y.pick_rate))),
-                    ticks: {
-                      stepSize: 0.5
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      color: "#000000ff",
+                      display: true,
+                      text: 'Winrate By Map.',
+                      font: {
+                        size: 20
+                      }
                     },
                   },
-                },
-                plugins: {
-                  legend: {
-                    position: 'top',
+                }}
+              />
+            </div>
+            <h3>Victory Point Stats</h3>
+            <div className='static-stats'>
+              <div className='chart-box chart-2'>
+                <h3>Average Victory Points</h3>
+                <p className='data-main'>{Math.round(filterData.avgVP.avg_vp)}</p>
+              </div>
+              <div className='chart-box chart-2'>
+                <h3>Highest VP Acheived</h3>
+                <p className='data-main'>{Math.round(filterData.avgVP.max_vp)}</p>
+              </div>
+              <div className='chart-box chart-2'>
+                <h3>Victory Points Lower Quartile</h3>
+                <p className='data-main'>{Math.round(filterData.avgVP.vp_25_percentile)}</p>
+              </div>
+              <div className='chart-box chart-2'>
+                <h3>Victory Points Upper Quartile</h3>
+                <p className='data-main'>{Math.round(filterData.avgVP.vp_75_percentile)}</p>
+              </div>
+            </div>
+            <div className='chart-box chart-1'>
+              <Line
+                data={{
+                  labels: ['Start', 'R1', 'R2', 'R3', 'R4', 'R5', 'R6'],
+                  datasets: [
+                    {
+                      label: 'Victory Points',
+                      data: Object.values(filterData.avgVPRound),
+                      backgroundColor: "#0d3b52ff",
+                      borderColor: "#66CCFF",
+
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: false,
+                  indexAxis: 'x',
+                  responsive: true,
+                  scales: {
+                    y: {
+                      min: 0,
+                      max: Math.max(...Object.values(filterData.avgVPRound)),
+                      ticks: {
+                        stepSize: 1
+                      },
+                    },
                   },
-                  title: {
-                    color: "#000000ff",
-                    display: true,
-                    text: 'Pickrate over time.',
-                    font: {
-                      size: 20
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      color: "#000000ff",
+                      display: true,
+                      text: 'VP By Round.',
+                      font: {
+                        size: 20
+                      }
+                    },
+                  },
+                }}
+              />
+            </div>
+            <div className='chart-box chart-1'>
+              <Line
+                data={{
+                  labels: Object.keys(filterData.popOT),
+                  datasets: [
+                    {
+                      label: 'Pickrate %',
+                      data: Object.values(filterData.popOT).map(y => y.pick_rate),
+                      backgroundColor: "#650f0fff",
+                      borderColor: "#e75766ff",
+
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: false,
+                  indexAxis: 'x',
+                  responsive: true,
+                  scales: {
+                    y: {
+                      min: Math.floor(Math.min(...Object.values(filterData.popOT).map(y => y.pick_rate))),
+                      max: Math.ceil(Math.max(...Object.values(filterData.popOT).map(y => y.pick_rate))),
+                      ticks: {
+                        stepSize: 0.5
+                      },
+                    },
+                  },
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      color: "#000000ff",
+                      display: true,
+                      text: 'Pickrate over time.',
+                      font: {
+                        size: 20
+                      }
+                    },
+                  },
+                }}
+              />
+            </div>
+            <div className='chart-box chart-4'>
+              <Doughnut
+                data={{
+                  labels: Object.keys(filterData.wrByPlayercount),
+                  datasets: [
+                    {
+                      label: 'Winrate %',
+                      data: Object.values(filterData.wrByPlayercount).map(c => c.win_rate),
+                      backgroundColor: Object.values(filterData.wrByPlayercount).map((count, index) => playerCountColors[index])
                     }
-                  },
-                },
-              }}
-            />
-          </div>
-          <div className='chart-box chart-4'>
-            <Doughnut
-              data={{
-                labels: Object.keys(filterData.wrByPlayercount),
-                datasets: [
-                  {
-                    label: 'Winrate %',
-                    data: Object.values(filterData.wrByPlayercount).map(c => c.win_rate),
-                    backgroundColor: Object.values(filterData.wrByPlayercount).map((count, index) => playerCountColors[index])
+                  ]
+                }}
+                options={{
+                  plugins: {
+                    title: {
+                      color: "#000000ff",
+                      display: true,
+                      text: 'Winrate by player count.',
+                      font: {
+                        size: 20
+                      }
+                    }
                   }
-                ]
-              }}
-              options={{
-                plugins: {
-                  title: {
-                    color: "#000000ff",
-                    display: true,
-                    text: 'Winrate by player count.',
-                    font: {
-                      size: 20
-                    }
-                  }
-                }
-              }}
-            >
+                }}
+              >
 
-            </Doughnut>
+              </Doughnut>
+
+            </div>
 
           </div>
-
-        </div>
       }
     </div>
   );
