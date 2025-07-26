@@ -4,17 +4,31 @@
 }
 
 .stats-nav-options {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: flex;;
+    flex-direction: column;
     justify-content: center;
+    width: 100vw;
+    margin-top: 5vh;
+    height: 95%;
 }
 
 .stats-nav-button {
     margin: 20px;
-    width: 150px;
-    height: 150px;
-    background-color: rgb(80, 77, 77);
-    box-shadow: 7px 7px 10px 2px black;
+    width: 75%;
+    height: 10vh;
+    background-image: url('../assets/parchment.jpg');
+    background-size: cover;
+    background-position: center;
+    color: black;
+    font-size: 1.5em;
+    box-shadow: 7px 7px 15px 2px black;
 }
 
+
+.stats-nav-button:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+    box-shadow: 10px 10px 20px 3px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
+    transition: all 0.2s ease;
+}

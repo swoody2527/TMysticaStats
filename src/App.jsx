@@ -8,6 +8,7 @@ import GameTileStats from './components/StatsPages/GameTileStats.jsx'
 import GeneralStats from './components/StatsPages/GeneralStats.jsx'
 import MapStats from './components/StatsPages/MapStats.jsx'
 import TrendsOT from './components/StatsPages/TrendsOT.jsx'
+import LegendPage from './components/LegendPage..jsx'
 import './App.css'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/map-stats' element={<MapStats/>}></Route>
         <Route path='/game-tile-stats' element={<GameTileStats/>}></Route>
         <Route path='/trend-stats' element={<TrendsOT/>}></Route>
+        <Route path='/legend-page' element={<LegendPage/>}></Route>
       </Routes>
       
     </main>

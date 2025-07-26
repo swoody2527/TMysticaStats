@@ -185,7 +185,7 @@ function FactionStats() {
               </div>
               <div className='filter-widget'>
                 <p className='filter-info-label'>No. Players</p>
-                <p className='filter-info-text'>{numPlayers}</p>
+                <p className='filter-info-text'>{numPlayers == 'any' ? 'Any' : numPlayers}</p>
               </div>
             </div>
             <div className='static-stats'>

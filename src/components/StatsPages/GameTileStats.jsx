@@ -127,7 +127,7 @@ function GameTileStats() {
     'TW5',
     'TW6',
     'TW7',
-    'TW8'
+    'TW8',
   ]
 
   const roundColors = [
@@ -234,7 +234,7 @@ function GameTileStats() {
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>No. Players</p>
-              <p className='filter-info-text'>{numPlayers}</p>
+              <p className='filter-info-text'>{numPlayers == 'any' ? 'Any' : numPlayers}</p>
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Map</p>
