@@ -9,7 +9,7 @@ function LandingPage() {
         <h1 className='landing-title'>TMysticaStats</h1>
         <div className='page-choices'>
             <Link to={'/faction-predict'}><button>Faction Choice Helper</button></Link>
-            <Link to={'/game-statistics'}><button>Game Statistics</button></Link>
+            <Link to={'/menu'}><button>Game Statistics</button></Link>
         </div>
     </div>
   )

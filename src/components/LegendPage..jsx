@@ -26,8 +26,8 @@ function LegendPage() {
                     Object.keys(tileInfo.scoreTiles).map((key) => (
                         <div className='tile-widget' key={key}>
                             <div className='tile-widget-main'>
-                                <p>{key}</p>
-                                <img src={tileInfo.scoreTiles[key].img} alt={key} />
+                                <h3>{key}</h3>
+                                <img className='tile-widget-img-normal' src={tileInfo.scoreTiles[key].img} alt={key} />
                             </div>
                             <p>{tileInfo.scoreTiles[key].info}</p>
                         </div>
@@ -47,8 +47,8 @@ function LegendPage() {
                     Object.keys(tileInfo.bonusTiles).map((key) => (
                         <div className='tile-widget' key={key}>
                             <div className='tile-widget-main'>
-                                <p>{key}</p>
-                                <img src={tileInfo.bonusTiles[key].img} alt={key} />
+                                <h3>{key}</h3>
+                                <img className='bonus-tile-img' src={tileInfo.bonusTiles[key].img} alt={key} />
                             </div>
                             <p>{tileInfo.bonusTiles[key].info}</p>
                         </div>
@@ -68,8 +68,8 @@ function LegendPage() {
                     Object.keys(tileInfo.favorTiles).map((key) => (
                         <div className='tile-widget' key={key}>
                             <div className='tile-widget-main'>
-                                <p>{key}</p>
-                                <img src={tileInfo.favorTiles[key].img} alt={key} />
+                                <h3>{key}</h3>
+                                <img className='tile-widget-img-normal' src={tileInfo.favorTiles[key].img} alt={key} />
                             </div>
                             <p>{tileInfo.favorTiles[key].info}</p>
                         </div>
@@ -89,8 +89,8 @@ function LegendPage() {
                     Object.keys(tileInfo.townTiles).map((key) => (
                         <div className='tile-widget' key={key}>
                             <div className='tile-widget-main'>
-                                <p>{key}</p>
-                                <img src={tileInfo.townTiles[key].img} alt={key} />
+                                <h3>{key}</h3>
+                                <img className='tile-widget-img-normal' src={tileInfo.townTiles[key].img} alt={key} />
                             </div>
                             <p>{tileInfo.townTiles[key].info}</p>
                         </div>

@@ -19,7 +19,7 @@ function App() {
       
       <Routes>
         <Route path='/' element={<LandingPage/>}></Route>
-        <Route path='/game-statistics' element={<StatsMenu/>}></Route>
+        <Route path='/menu' element={<StatsMenu/>}></Route>
         <Route path='/faction-predict' element={<PredictPage/>}></Route>
         <Route path='/general-stats' element={<GeneralStats/>}></Route>
         <Route path='/faction-stats' element={<FactionStats/>}></Route>

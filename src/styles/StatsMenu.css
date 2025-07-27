@@ -1,6 +1,10 @@
 .stats-page {
     display: flex;
     flex-direction: column;
+    background-image: url('../assets/leather.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .stats-nav-options {

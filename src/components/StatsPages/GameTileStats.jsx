@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
-import '../../styles/StatsPages/FactionStats.css';
+import ErrorComponent from '../reusable/ErrorComponent';
+import NoSearch from '../reusable/NoSearch';
 import '../../styles/StatsPages/GeneralStats.css';
 import factionImages from '../../assets/faction-images/factionImages';
 import { factionInformation, mapInformation } from '../../assets/infoDicts';
@@ -42,6 +43,7 @@ function GameTileStats() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true)
   const [hasSearched, setHasSearched] = useState(false)
+  const [error, setError] = useState(false)
 
   const [filterData, setFilterData] = useState({
     scoreTileFreq: null,
@@ -147,6 +149,7 @@ function GameTileStats() {
 
 
   useEffect(() => {
+    setError(false)
     setIsLoading(true)
     const shouldFetch = faction && startYear && endYear;
     if (!shouldFetch) return;
@@ -191,9 +194,11 @@ function GameTileStats() {
           townTilesFaction: townTiles.data,
           vpGainedByScoreTile: vpGainSorted,
         });
+        setError(false)
         setIsLoading(false)
       } catch (err) {
         console.error('API fetch error:', err);
+        setError(err.response.data.error)
         setIsLoading(false)
       }
     };
@@ -211,13 +216,10 @@ function GameTileStats() {
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true, showMaps: true }}
         optionalFilters={{ optFaction: true, optMap: true }}
       />
-      {!hasSearched ? <div>
-        <h2>No Search!</h2>
-        <p>Use the filter menu to search stats.</p>
-      </div> : isLoading ?
+      {error ? <ErrorComponent errorMsg={error} /> : !hasSearched ? <NoSearch/> : isLoading ?
         <div>
           <span className='loader'></span>
-          <p>Compiling Statistics...</p>
+           <p style={{fontSize: '2em', color: 'white', fontWeight: 'bold', WebkitTextStroke: '1px black'}}>Compiling Statistics...</p>
         </div>
         :
         <div className='general-stats-container'>

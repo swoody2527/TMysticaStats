@@ -1,6 +1,8 @@
 import React from 'react'
 import BackHeader from '../reusable/BackHeader'
 import FactionsFilter from '../reusable/FactionsFilter'
+import ErrorComponent from '../reusable/ErrorComponent';
+import NoSearch from '../reusable/NoSearch';
 import { data, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -41,6 +43,7 @@ function MapStats() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true)
   const [hasSearched, setHasSearched] = useState(false)
+  const [error, setError] = useState(false)
 
   const [filterData, setFilterData] = useState({
     gamesPerMap: null,
@@ -87,6 +90,7 @@ function MapStats() {
 
 
   useEffect(() => {
+    setError(null)
     setIsLoading(true)
     const shouldFetch = mapID && startYear && endYear;
     if (!shouldFetch) return;
@@ -133,9 +137,11 @@ function MapStats() {
           avgVPPerMap: vpMapSorted,
           performanceVar: performanceSorted,
         });
+        setError(null)
         setIsLoading(false)
       } catch (err) {
         console.error('API fetch error:', err);
+        setError(err.response.data.error)
         setIsLoading(false)
       }
     };
@@ -151,13 +157,10 @@ function MapStats() {
         initialValues={{ startYear, endYear, mapID }}
         availableFilters={{ showMaps: true, showYears: true }} />
 
-      {!hasSearched ? <div>
-        <h2>No Search!</h2>
-        <p>Use the filter menu to search stats.</p>
-      </div> : isLoading ?
+      {error? <ErrorComponent errorMsg={error} /> :!hasSearched ? <NoSearch/> : isLoading ?
         <div>
           <span className='loader'></span>
-          <p>Compiling Statistics...</p>
+           <p style={{fontSize: '2em', color: 'white', fontWeight: 'bold', WebkitTextStroke: '1px black'}}>Compiling Statistics...</p>
         </div>
         :
         <div className='general-stats-container'>

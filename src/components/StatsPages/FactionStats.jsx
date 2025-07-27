@@ -4,7 +4,7 @@ import axios from 'axios';
 import BackHeader from '../reusable/BackHeader';
 import FactionsFilter from '../reusable/FactionsFilter';
 import ErrorComponent from '../reusable/ErrorComponent';
-import '../../styles/StatsPages/FactionStats.css';
+import NoSearch from '../reusable/NoSearch';
 import '../../styles/StatsPages/GeneralStats.css';
 import factionImages from '../../assets/faction-images/factionImages';
 
@@ -162,13 +162,10 @@ function FactionStats() {
         availableFilters={{ showFaction: true, showYears: true, showNumPlayers: true }}
       />
       {error ? <ErrorComponent errorMsg={error} /> : !hasSearched ?
-        <div>
-          <h2>No Search!</h2>
-          <p>Use the filter menu to search stats.</p>
-        </div> : isLoading ?
+        <NoSearch/> : isLoading ?
           <div>
             <span className='loader'></span>
-            <p>Compiling Statistics...</p>
+            <p style={{fontSize: '2em', color: 'white', fontWeight: 'bold', WebkitTextStroke: '1px black'}}>Compiling Statistics...</p>
           </div>
           :
           <div className='general-stats-container'>

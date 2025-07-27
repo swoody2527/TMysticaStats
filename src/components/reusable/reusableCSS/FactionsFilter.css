@@ -9,8 +9,9 @@
 }
 
 .filter-container {
+  background-image: url('../../../assets/parchment.jpg');
   position: fixed;
-  top: 5vh;
+  top: 7vh;
   left: 0;
   width: 100vw;
   z-index: 10;

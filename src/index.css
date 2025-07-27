@@ -25,6 +25,10 @@ a:hover {
 }
 
 body {
+  background-image: url('./assets/backdrop.png');
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
   margin: 0;
   display: flex;
   place-items: center;
