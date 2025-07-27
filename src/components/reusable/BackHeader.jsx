@@ -7,7 +7,7 @@ function BackHeader() {
     <div className='back-header'>
       <h2>TMysticaStats</h2>
       <Link to={'/'}><button>Home</button></Link>
-      <Link to={'/game-statistics'}><button>Menu</button></Link>
+      <Link to={'/menu'}><button>Menu</button></Link>
     </div>
   )
 }
