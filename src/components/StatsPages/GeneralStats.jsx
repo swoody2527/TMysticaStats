@@ -1,8 +1,10 @@
-import React from 'react'
+
 import BackHeader from '../reusable/BackHeader'
 import '../../styles/StatsPages/GeneralStats.css'
 import generalStats from '../../../general_stats.json'
 import { mapInformation, factionInformation, mapInformationByName } from '../../assets/infoDicts'
+import React, { useEffect, useState } from 'react';
+
 
 import {
   Chart as ChartJS,
@@ -36,11 +38,46 @@ ChartJS.defaults.plugins.datalabels.display = false;
 
 function GeneralStats() {
 
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
+  const staticStats = (
+  <div className='static-stats'>
+    <div className='chart-box chart-3'>
+      <h3>Total Games</h3>
+      <p className='data-main'>{generalStats.total_games.toLocaleString()}</p>
+    </div>
+    <div className='chart-box chart-2'>
+      <h3>Avg Winning VP</h3>
+      <p className='data-main'>{generalStats.vp_scores.win_avg}</p>
+    </div>
+    <div className='chart-box chart-2'>
+      <h3>Avg VP Per Player</h3>
+      <p className='data-main'>{generalStats.vp_scores.per_player_avg}</p>
+    </div>
+  </div>
+);
+
+
+
   return (
     <main>
       <BackHeader />
       <div className='general-stats-container no-filter'>
-        <h3 className='page-header'>General Game Statistics</h3>
+        <div className='header-container'>
+          <h3 className='page-header'>General Game Statistics</h3>
+        </div>
+        {isDesktop ? staticStats: null}
         <div className='chart-box chart-1'>
           <Bar
             data={{
@@ -84,20 +121,7 @@ function GeneralStats() {
           />
 
         </div>
-        <div className='static-stats'>
-          <div className='chart-box chart-3'>
-            <h3>Total Games</h3>
-            <p className='data-main'>{generalStats.total_games.toLocaleString()}</p>
-          </div>
-          <div className='chart-box chart-2'>
-            <h3>Avg Winning VP</h3>
-            <p className='data-main'>{generalStats.vp_scores.win_avg}</p>
-          </div>
-          <div className='chart-box chart-2'>
-            <h3>Avg VP Per Player</h3>
-            <p className='data-main'>{generalStats.vp_scores.per_player_avg}</p>
-          </div>
-        </div>
+       {!isDesktop ? staticStats : null}
         <div className='chart-box chart-1'>
           <Bar
             data={{

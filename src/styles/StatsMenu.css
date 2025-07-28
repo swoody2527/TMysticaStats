@@ -1,18 +1,18 @@
 .stats-page {
     display: flex;
     flex-direction: column;
-    background-image: url('../assets/leather.jpg');
+    background-image: url('../assets/backdrop2.png');
     background-size: cover;
-    background-position: center;
+    background-position: left top +20px;
     height: 100vh;
 }
 
 .stats-nav-options {
-    display: flex;;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100vw;
-    margin-top: 5vh;
+    margin-top: 3.75vh;
     height: 95%;
 }
 
@@ -28,6 +28,14 @@
     box-shadow: 7px 7px 15px 2px black;
 }
 
+@media screen and (min-width: 1024px) {
+  .stats-nav-button {
+    width: 30%;
+  }
+.stats-nav-options {
+    margin-bottom: 2.5vh;
+}
+}
 
 .stats-nav-button:hover {
     transform: scale(1.03);

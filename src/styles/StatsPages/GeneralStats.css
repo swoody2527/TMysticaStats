@@ -6,6 +6,11 @@
   margin-top: 12.5vh;
 }
 
+.header-container {
+  background-color: rgb(106, 102, 102);
+  width: 100vw;
+}
+
 .page-header {
   font-size: 30px;
   margin: 10px;
@@ -77,12 +82,14 @@
   background-image: url('../../assets/parchment.jpg');
   background-size: cover;
   background-position: center;
+  
   color: black;
   margin: 10px;
   height: 20vh;
   border-radius: 20px;
   box-shadow: 5px 5px 15px 5px;
 }
+
 
 .data-main {
   font-size: 3rem;
@@ -113,6 +120,44 @@
   height: 50vh;
 }
 
+
+@media screen and (min-width: 1024px) {
+  .general-stats-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .static-stats {
+    
+  }
+
+  .chart-box {
+    margin: 20px;
+    display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  }
+  .chart-1 {
+    width: 40vw;
+  }
+
+  .chart-2 {
+    width: 25vw;
+
+  }
+
+  .chart-3 {
+    width: 25vw;
+  }
+
+  .chart-4 {
+    width: 40vw;
+    height: 60vh;
+    align-items: center;
+  }
+}
 
 .loader {
     width: 70px;
