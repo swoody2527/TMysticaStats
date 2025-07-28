@@ -107,6 +107,13 @@ function GeneralStats() {
               plugins: {
                 legend: {
                   position: 'top',
+                  labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                 },
                 title: {
                   color: "#000000ff",
@@ -153,6 +160,13 @@ function GeneralStats() {
               plugins: {
                 legend: {
                   position: 'top',
+                  labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                 },
                 title: {
                   color: "#000000ff",
@@ -209,6 +223,15 @@ function GeneralStats() {
                   font: {
                     size: 20
                   }
+                },
+                legend: {
+                  labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                 }
               }
             }}
@@ -239,6 +262,15 @@ function GeneralStats() {
                   font: {
                     size: 20
                   }
+                },
+                legend: {
+                  labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                 }
               }
             }}

@@ -44,6 +44,7 @@ function GameTileStats() {
   const [isLoading, setIsLoading] = useState(true)
   const [hasSearched, setHasSearched] = useState(false)
   const [error, setError] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
 
   const [filterData, setFilterData] = useState({
     scoreTileFreq: null,
@@ -206,6 +207,17 @@ function GameTileStats() {
     fetchData();
   }, [faction, startYear, endYear, numPlayers, mapID]);
 
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div>
       <BackHeader />
@@ -273,6 +285,13 @@ function GameTileStats() {
                 plugins: {
                   legend: {
                     position: 'top',
+                    labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                   },
                   title: {
                     color: "#000000ff",
@@ -315,6 +334,13 @@ function GameTileStats() {
                 plugins: {
                   legend: {
                     position: 'top',
+                    labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                   },
                   title: {
                     color: "#000000ff",
@@ -364,6 +390,13 @@ function GameTileStats() {
                 plugins: {
                   legend: {
                     position: 'top',
+                    labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                   },
                   title: {
                     color: "#000000ff",
@@ -414,6 +447,13 @@ function GameTileStats() {
                 plugins: {
                   legend: {
                     position: 'top',
+                    labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                   },
                   title: {
                     color: "#000000ff",
@@ -462,6 +502,13 @@ function GameTileStats() {
                 plugins: {
                   legend: {
                     position: 'top',
+                    labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                   },
                   title: {
                     color: "#000000ff",

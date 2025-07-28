@@ -44,6 +44,7 @@ function FactionStats() {
   const [hasSearched, setHasSearched] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
 
   const [filterData, setFilterData] = useState({
     winRate: null,
@@ -152,6 +153,16 @@ function FactionStats() {
     fetchData();
   }, [faction, startYear, endYear, numPlayers]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div>
       <BackHeader />
@@ -169,11 +180,13 @@ function FactionStats() {
           </div>
           :
           <div className='general-stats-container'>
-            <h3 className='page-header'>{factionInformation[faction].name} Statistics</h3>
+            <div className='header-container'>
+          <h3 className='page-header'>{factionInformation[faction].name} Statistics</h3>
+        </div>
             <div className='filter-info'>
               <div className='filter-widget'>
                 <p className='filter-info-label'>Faction</p>
-                <img src={factionImages[factionInformation[faction].name]} />
+                <img src={factionImages[factionInformation[faction].name.split(' ').join('')]} />
               </div>
               <div className='filter-widget'>
                 <p className='filter-info-label'>Year Range</p>
@@ -238,6 +251,13 @@ function FactionStats() {
                   plugins: {
                     legend: {
                       position: 'top',
+                      labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                     },
                     title: {
                       color: "#000000ff",
@@ -283,6 +303,13 @@ function FactionStats() {
                   plugins: {
                     legend: {
                       position: 'top',
+                      labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                     },
                     title: {
                       color: "#000000ff",
@@ -296,7 +323,6 @@ function FactionStats() {
                 }}
               />
             </div>
-            <h3>Victory Point Stats</h3>
             <div className='static-stats'>
               <div className='chart-box chart-2'>
                 <h3>Average Victory Points</h3>
@@ -345,6 +371,13 @@ function FactionStats() {
                   plugins: {
                     legend: {
                       position: 'top',
+                      labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                     },
                     title: {
                       color: "#000000ff",
@@ -388,6 +421,13 @@ function FactionStats() {
                   plugins: {
                     legend: {
                       position: 'top',
+                      labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                     },
                     title: {
                       color: "#000000ff",
@@ -422,6 +462,15 @@ function FactionStats() {
                       font: {
                         size: 20
                       }
+                    },
+                    legend: {
+                      labels: {
+                      color: "#000000ff",
+                      font: {
+                        size: isDesktop ? 20 : 10,
+                        weight: 'bold',
+                      }
+                    }
                     }
                   }
                 }}
