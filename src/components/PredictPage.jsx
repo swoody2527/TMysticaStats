@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import BackHeader from './reusable/BackHeader'
+import PredictFilter from './reusable/PredictFilter'
 
 function PredictPage() {
   return (
-    <div className='back-header'>
-        <p>Hello</p>
-        <Link to={'/'}><button>go back</button></Link>
+    <div>
+        <BackHeader />
+        <PredictFilter/>
     </div>
   )
 }
