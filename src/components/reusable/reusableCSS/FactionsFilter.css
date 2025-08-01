@@ -39,7 +39,6 @@
 .filter-options-container {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 5vh;
@@ -58,6 +57,7 @@
   justify-content: space-evenly;
   animation: fadeIn 1s ease;
 }
+
 
 .filter-option label,
 .filter-option p {
@@ -166,6 +166,14 @@
   justify-content: flex-start;
 }
 
+.tile-box input {
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  margin-top: 5px;
+}
+
+
 
 .score-tile-selections {
   display: flex;
@@ -178,16 +186,29 @@
 }
 
 .score-tile-selections label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   height: 100%;
-  width: 50%;
+  width: 45%;
   margin-bottom: 10px;
-  background-color: black;
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 20px;
+  border: 5px black;
 }
 
 .bonus-tile-box {
   height: 32.5vh;
   justify-content: flex-start;
+}
+
+.bonus-tile-box input {
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
 }
 
 .bonus-tile-selections {
@@ -201,24 +222,55 @@
 }
 
 .bonus-tile-selections label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   width: 75%;
-  margin-right: 25px;
-  background-color: black;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 
 .filter-score-tile-img {
-  height: 65%;
+  height: 60%;
+  filter: drop-shadow(5px 5px 5px black);
 }
 
 .filter-bonus-tile-img {
   height: 85%;
+  filter: drop-shadow(5px 5px 5px black);
 }
 
+.faction-label {
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.423);
+}
 
 .prediction-faction-img {
   height: 60%;
+}
+
+
+.input-info {
+  height: auto;
+  justify-content: flex-start;
+}
+
+
+.info-holder {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.476);
+}
+
+.info-holder-title {
+  font-weight: bold;
+
+}
+
+.info-holder-data {
+  font-size: 0.5em;
+
 }
 
 
@@ -243,5 +295,30 @@
   .arrow {
     margin-top: 10px;
   }
+
+  .tile-box {
+    width: 80%;
+    height: 25%;
+  }
+
+  .bonus-tile-box {
+    width: 80%;
+  }
+
+  .score-tile-selections label {
+    width: 20%;
+    height: auto;
+  }
+
+  .filter-score-tile-img {
+  height: 60%;
+
+  
+}
+
+.filter-bonus-tile-img {
+  height: 77.5%;
+}
+
   
   }

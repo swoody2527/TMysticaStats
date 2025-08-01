@@ -1,0 +1,54 @@
+.prediction-page {
+    height: auto;
+    width: 100vw;
+    background-image: url('../assets/stone.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.prediction-header {
+    margin-top: 12vh;
+}
+
+.prediction-header h2 {
+    padding: 20px;
+}
+
+.prediction-output-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+
+
+
+.prediction-output-container p {
+  text-align: center;
+  padding: 8px;
+  margin: 0;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.372);
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.65);
+  font-size: 1.3em;
+  text-shadow: 2px 2px 2px black;
+
+}
+
+.header-cell {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.621);
+  border-bottom: 2px solid #ccc;
+}
+
+
+
+.faction-prediction {
+    background-color: rgba(0, 0, 0, 0.495);
+    display: contents;
+}
+
+
