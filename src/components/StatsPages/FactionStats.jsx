@@ -223,7 +223,7 @@ function FactionStats() {
             <div className='chart-box chart-1'>
               <Bar
                 data={{
-                  labels: Object.keys(filterData.wrVersus),
+                  labels: Object.keys(filterData.wrVersus).map(f => factionInformation[f].name),
                   datasets: [
                     {
                       label: 'Win Percentage %',

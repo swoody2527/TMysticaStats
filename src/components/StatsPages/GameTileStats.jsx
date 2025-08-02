@@ -148,6 +148,15 @@ function GameTileStats() {
     '#fabfd2'
   ];
 
+  const roundKeys = {
+    'round0': 'Round 1',
+    'round1': 'Round 2',
+    'round2': 'Round 3',
+    'round3': 'Round 4',
+    'round4': 'Round 5',
+    'round5': 'Round 6'
+  }
+
 
   useEffect(() => {
     setError(false)
@@ -260,7 +269,7 @@ function GameTileStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.scoreTileFreq),
+                labels: Object.keys(filterData.scoreTileFreq).map(round => roundKeys[round]),
                 datasets: scoreTiles.map((tile, index) => ({
                   label: tile,
                   data: Object.keys(filterData.scoreTileFreq).map(round => filterData.scoreTileFreq[round][tile]),
@@ -309,7 +318,7 @@ function GameTileStats() {
           <div className='chart-box chart-1'>
             <Bar
               data={{
-                labels: Object.keys(filterData.bonusTilePop),
+                labels:  Object.keys(filterData.scoreTileFreq).map(round => roundKeys[round]),
                 datasets: bonusTiles.map((tile, index) => ({
                   label: tile,
                   data: Object.keys(filterData.bonusTilePop).map(round => filterData.bonusTilePop[round][tile]),

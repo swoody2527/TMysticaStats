@@ -10,10 +10,20 @@
 }
 
 .landing-title {
+    background-image: url('../assets/banner.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -2vh;
     color: rgba(246, 219, 111, 1);
     -webkit-text-stroke: 1.5px black;
     text-shadow: 5px 5px 10px black;
     margin: 0;
+    width: 100vw;
+    height: 10vh;
+}
+
+.landing-title h1 {
+    margin-top: 5vh;
 }
 
 .page-choices {

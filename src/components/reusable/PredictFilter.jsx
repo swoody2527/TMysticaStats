@@ -5,7 +5,18 @@ import tileInfo from '../../assets/tileInfo';
 import factionImages from '../../assets/faction-images/factionImages';
 
 function PredictFilter({ onSubmit, initialValues = {} }) {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(() => {
+        const hasInitial =
+            initialValues?.numPlayers &&
+            initialValues?.mapID &&
+            Array.isArray(initialValues?.scoreTileList) &&
+            Array.isArray(initialValues?.bonusTileList) &&
+            initialValues?.scoreTileList.length > 0 &&
+            initialValues?.bonusTileList.length > 0;
+
+        return !hasInitial;
+    });
+
     const [numPlayers, setNumPlayers] = useState(null)
     const [map, setMap] = useState(null)
     const [scoreTileList, setScoreTileList] = useState([])
@@ -113,7 +124,7 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
 
                         <div className='filter-option input-info'>
                             <h2>Faction Suggestions</h2>
-                            <p style={{padding: 20}}>
+                            <p style={{ padding: 20 }}>
                                 The faction suggestion tool can give rough guidance
                                 on how factions will perform given the amount of players,
                                 the map, the scoring tiles, and the bonus tiles. Some combinations
@@ -121,6 +132,8 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
                                 predictions to be off to large degree.
                             </p>
                             <p>Scoring tiles should be entered in order of their round occurance.</p>
+
+                            <p>Start by selecting No. Players to enable tile selection.</p>
 
                         </div>
 
@@ -140,7 +153,7 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
                                 <p className='info-holder-title'>Score Tiles: {scoreTileList.length}/6</p>
                                 <p className='info-holder-data'>{scoreTileList.join(', ') || 'None Selected'}</p>
                             </div>
-                            
+
                             <div className='info-holder'>
                                 <p className='info-holder-title'>Bonus Tiles: {bonusTileList.length}/{bonusTileAmounts[numPlayers] || '?'}</p>
                                 <p className='info-holder-data'>{bonusTileList.join(', ') || 'None Selected'}</p>
@@ -155,7 +168,7 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
                             <button className='apply-btn' type='submit'>Predict</button>
                         </div>
 
-                        
+
 
 
                         <div className='filter-option'>
@@ -164,7 +177,7 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
                                 <select onChange={(e) => {
                                     setNumPlayers(e.target.value)
                                     setBonusTileList([])
-                                }} className='option-select'>
+                                }} className='option-select map-filter'>
                                     <option selected value="" disabled>Select Players</option>
                                     {num_players.map((num, index) => (
                                         <option key={num}>{num}</option>
@@ -209,7 +222,7 @@ function PredictFilter({ onSubmit, initialValues = {} }) {
 
 
                         <div className='filter-option bonus-tile-box'>
-                            <p>Bonus Tiles: {bonusTileList.length}/{bonusTileAmounts[numPlayers]}</p>
+                            <p>Bonus Tiles: {bonusTileList.length}/{bonusTileAmounts[numPlayers] || '?'}</p>
                             <div className='bonus-tile-selections'>
                                 {bonusTiles.map((tile) => (
                                     <label key={tile} >

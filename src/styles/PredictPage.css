@@ -1,13 +1,18 @@
 .prediction-page {
+  background-image: url('../assets/backdrop3.png');
     height: auto;
     width: 100vw;
-    background-image: url('../assets/stone.jpg');
+
     background-position: center;
     background-size: cover;
+    
 }
 
 .prediction-header {
     margin-top: 12vh;
+    font-size: 1.5em;
+    -webkit-text-stroke: 1px black;
+    text-shadow: 2px 2px 2px black;
 }
 
 .prediction-header h2 {
@@ -15,12 +20,15 @@
 }
 
 .prediction-output-container {
+  background-image: url('../assets/parchment.jpg');
+  border-radius: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   padding: 12px;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
+  box-shadow: 2px 2px 10px 2px black;
 }
 
 
@@ -51,4 +59,22 @@
     display: contents;
 }
 
+.loading-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
 
+}
+
+
+@media screen and (min-width: 1024px) {
+
+  .prediction-output-container {
+    width: 60%;
+    margin: 0 auto;
+  }
+
+}
