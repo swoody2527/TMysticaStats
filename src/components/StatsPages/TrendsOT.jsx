@@ -321,7 +321,7 @@ function TrendsOT() {
                   title: {
                     color: "#000000ff",
                     display: true,
-                    text: 'VP By Round.',
+                    text: 'Total games played',
                     font: {
                       size: 20
                     }
