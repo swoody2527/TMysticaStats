@@ -184,6 +184,7 @@ function GameTileStats() {
     const fetchData = async () => {
       setHasSearched(true)
       try {
+        console.log(filterParams)
         const [
           scoreFreq, bonusPop, favorTiles,
           townTiles, vpGainScoreTile,
@@ -248,7 +249,7 @@ function GameTileStats() {
           <div className='filter-info'>
             <div className='filter-widget'>
               <p className='filter-info-label'>Faction</p>
-              <img src={factionImages[factionInformation[faction].name] || factionImages.Any} />
+              <img src={factionImages[factionInformation[faction.name]] || factionImages.Any} />
             </div>
             <div className='filter-widget'>
               <p className='filter-info-label'>Year Range</p>

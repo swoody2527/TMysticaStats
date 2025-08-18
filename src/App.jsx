@@ -12,11 +12,9 @@ import LegendPage from './components/LegendPage..jsx'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <main>
-      
       <Routes>
         <Route path='/' element={<LandingPage/>}></Route>
         <Route path='/menu' element={<StatsMenu/>}></Route>
@@ -27,8 +25,7 @@ function App() {
         <Route path='/game-tile-stats' element={<GameTileStats/>}></Route>
         <Route path='/trend-stats' element={<TrendsOT/>}></Route>
         <Route path='/legend-page' element={<LegendPage/>}></Route>
-      </Routes>
-      
+      </Routes>    
     </main>
   )
 }

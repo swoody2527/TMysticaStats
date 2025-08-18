@@ -1,0 +1,65 @@
+{
+  "win_rate%": {
+    "darklings": 32.98,
+    "shapeshifters": 31.33,
+    "cultists": 31.01,
+    "engineers": 31.0,
+    "riverwalkers": 30.34,
+    "swarmlings": 29.15,
+    "chaosmagicians": 28.73,
+    "mermaids": 28.45,
+    "witches": 28.12,
+    "icemaidens": 26.88,
+    "acolytes": 25.73,
+    "nomads": 25.59,
+    "halflings": 25.31,
+    "alchemists": 24.49,
+    "yetis": 23.86,
+    "auren": 23.72,
+    "dragonlords": 23.68,
+    "dwarves": 23.29,
+    "giants": 21.84,
+    "fakirs": 19.95
+  },
+  "total_games": 196030,
+  "faction_pick%": {
+    "darklings": 45.13,
+    "nomads": 34.21,
+    "chaosmagicians": 33.78,
+    "mermaids": 30.71,
+    "witches": 29.0,
+    "engineers": 26.23,
+    "swarmlings": 23.34,
+    "halflings": 22.12,
+    "cultists": 20.33,
+    "alchemists": 13.98,
+    "dwarves": 13.17,
+    "giants": 12.47,
+    "auren": 9.46,
+    "yetis": 9.28,
+    "fakirs": 7.9,
+    "icemaidens": 7.41,
+    "dragonlords": 6.91,
+    "riverwalkers": 6.56,
+    "acolytes": 4.21,
+    "shapeshifters": 3.1
+  },
+  "avg_players": {
+    "4": 125819,
+    "2": 31302,
+    "3": 25258,
+    "5": 13375
+  },
+  "vp_scores": {
+    "per_player_avg": 121.58,
+    "win_avg": 144.34
+  },
+  "common_map": {
+    "Original": 126001,
+    "Fire & Ice v1": 29413,
+    "Fire & Ice v2": 20728,
+    "Loon Lakes v1.6": 7701,
+    "Original [2017 vp]": 6684,
+    "Fjords v2.1": 5495
+  }
+}

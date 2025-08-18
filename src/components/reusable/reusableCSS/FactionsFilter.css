@@ -157,7 +157,7 @@
 
 .apply-btn {
   background-color: green;
-  width: 85%;
+  width: 45%;
   box-shadow: 5px 5px 10px 2px rgb(0, 0, 0);
 }
 
@@ -319,6 +319,7 @@
 .filter-bonus-tile-img {
   height: 77.5%;
 }
+
 
   
   }

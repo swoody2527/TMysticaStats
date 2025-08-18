@@ -112,6 +112,7 @@ function FactionStats() {
     const fetchData = async () => {
       setHasSearched(true)
       try {
+        console.log(filterParams)
         const [
           wr, pr, wrVS,
           wrMaps, avgVP, avgVPRound,
@@ -223,13 +224,15 @@ function FactionStats() {
             <div className='chart-box chart-1'>
               <Bar
                 data={{
+                  // Keys of the object represent all the labels, map these to faction formatted names.
                   labels: Object.keys(filterData.wrVersus).map(f => factionInformation[f].name),
                   datasets: [
                     {
                       label: 'Win Percentage %',
+                      // Map over all values in the data dictionary
                       data: Object.values(filterData.wrVersus).map(f => f.win_rate),
-                      backgroundColor: Object.keys(filterData.wrVersus).map(f => factionColors[f])
-
+                      // Assign appropriate faction colour to each label bar.
+                      backgroundColor: Object.keys(filterData.wrVersus).map(f => factionInformation[f].color)
                     },
                   ],
                 }}
@@ -391,7 +394,7 @@ function FactionStats() {
                 }}
               />
             </div>
-            <div className='chart-box chart-1'>
+            <div className='chart-box chart-4'>
               <Line
                 data={{
                   labels: Object.keys(filterData.popOT),
