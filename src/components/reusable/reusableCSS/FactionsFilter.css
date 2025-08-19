@@ -281,7 +281,8 @@
 
 @media screen and (min-width: 1024px) {
   .filter-option {
-    width: 50%;
+    max-width: 50vw;
+    
   }
 
   .faction-widget {
