@@ -28,9 +28,20 @@
     -webkit-text-stroke: black 1px;
 }
 
-.back-header button {
-    margin-right: 10px;
-    margin-bottom: 5px;
-    background-color: #1f4156;
-    box-shadow: inset 5px 3px 10px black;
+.header-btn {
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  padding: 0.25rem 0.5rem;
+  min-height: 2rem;
+  font-size: 1rem;         
+  border-radius: 6px;
+
+  background-color: #1f4156;
+  box-shadow: inset 5px 3px 10px black;
+  color: #ffffff;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }

@@ -123,10 +123,12 @@
   flex-direction: column;
   justify-content: space-evenly;
   width: 45vw;
+  height: auto;
 }
 
 .chart-3 {
   width: 100vw;
+  height: auto;
 }
 
 .chart-4 {

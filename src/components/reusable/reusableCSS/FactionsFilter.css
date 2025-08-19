@@ -93,6 +93,7 @@
   margin: 5px;
   flex: 0 0 auto;
   width: 50%;
+  height: auto;
 }
 
 .faction-widget.selected {
@@ -100,7 +101,9 @@
 }
 
 .faction-widget img {
-    height: 75%;
+    max-width: 70%;
+    max-height: 70%;
+    filter: drop-shadow(5px 2px 10px black)
 }
 
 .faction-widget p {
@@ -158,6 +161,7 @@
 .apply-btn {
   background-color: green;
   width: 45%;
+  max-width: 200px;
   box-shadow: 5px 5px 10px 2px rgb(0, 0, 0);
 }
 
@@ -277,7 +281,7 @@
 
 @media screen and (min-width: 1024px) {
   .filter-option {
-    width: 45vw;
+    width: 50%;
   }
 
   .faction-widget {

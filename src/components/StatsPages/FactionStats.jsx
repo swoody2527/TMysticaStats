@@ -394,7 +394,7 @@ function FactionStats() {
                 }}
               />
             </div>
-            <div className='chart-box chart-4'>
+            <div className='chart-box chart-1'>
               <Line
                 data={{
                   labels: Object.keys(filterData.popOT),

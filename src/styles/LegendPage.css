@@ -1,5 +1,5 @@
 .options-container {
-    background-image: url('../assets/stone.jpg');
+    background-color: grey;
     background-position: center;
     background-size: cover;
     display: flex;
