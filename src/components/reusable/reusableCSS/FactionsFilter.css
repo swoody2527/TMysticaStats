@@ -105,8 +105,7 @@
 }
 
 .faction-widget img {
-    max-width: 70%;
-    max-height: 70%;
+  height: 80%;
     filter: drop-shadow(5px 2px 10px black);
 }
 
@@ -325,11 +324,6 @@
     width: 30%;
     height: auto;
   }
-
-  .filter-score-tile-img {
-
-  
-}
 
 .filter-bonus-tile-img {
   height: 77.5%;
